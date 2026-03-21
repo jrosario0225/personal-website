@@ -1,10 +1,10 @@
+import Scene from "./components/Scene"
 
 function App() {
 
   return (
     
-     <div>Personal Project</div>
-
+     <Scene />
   )
 }
 export default App
