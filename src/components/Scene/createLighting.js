@@ -6,8 +6,8 @@ function createLighting(scene) {
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
     directionalLight.position.set(5, 10, 5)
-    scene.add(directionalLight)
 
+    scene.add(directionalLight)
     return ambientLight, directionalLight
 }
 

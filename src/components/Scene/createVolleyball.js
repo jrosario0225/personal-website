@@ -5,6 +5,7 @@ function createVolleyball(scene) {
     const ballMaterial = new THREE.MeshPhongMaterial({ color: 0xfad97e })
     const ball = new THREE.Mesh(ballGeometry, ballMaterial)
     ball.position.set(0, 0, 0)
+    
     scene.add(ball)
     return ball
 }

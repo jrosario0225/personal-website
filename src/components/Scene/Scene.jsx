@@ -48,6 +48,7 @@ function Scene() {
         const ambientLight = createLighting(scene)
         const directionalLight = createLighting(scene)
 
+        // Net
         const netGroup = createNet(scene)
 
 
