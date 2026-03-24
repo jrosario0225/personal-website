@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three"
 
+// importing Scene components
+import createVolleyball from "./createVolleyball";
+import createLighting from "./createLighting";
+
 function Scene() {
     const mountRef = useRef(null)
 
@@ -20,28 +24,12 @@ function Scene() {
         )
         camera.position.z = 5
 
-        // Volleyball
-        const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32)
-        const ballMaterial = new THREE.MeshPhongMaterial({ color: 0xfad97e })
-        const ball = new THREE.Mesh(ballGeometry, ballMaterial)
-        ball.position.set(0, 0, 0)
-        scene.add(ball)
-
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)
-        scene.add(ambientLight)
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
-        directionalLight.position.set(5, 10, 5)
-        scene.add(directionalLight)
-
-
         // Renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true })
         renderer.setSize(mount.clientWidth, mount.clientHeight)
         mount.appendChild(renderer.domElement)
 
-    
+
         // Animation Loop
         let animationId
         const animate = () => {
@@ -49,7 +37,16 @@ function Scene() {
             renderer.render(scene, camera)
         }
         animate()
- 
+
+
+        {/* Things added to the Scene */ }
+        
+        // Volleyball
+        const ball = createVolleyball(scene)
+
+        // Lighting
+        const ambientLight = createLighting(scene)
+        const directionalLight = createLighting(scene)
 
         // Cleanup when component unmounts 
         return () => {
