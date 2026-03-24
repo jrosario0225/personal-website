@@ -20,14 +20,40 @@ function Scene() {
         )
         camera.position.z = 5
 
+        // Volleyball
+        const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32)
+        const ballMaterial = new THREE.MeshPhongMaterial({ color: 0xfad97e })
+        const ball = new THREE.Mesh(ballGeometry, ballMaterial)
+        ball.position.set(0, 0, 0)
+        scene.add(ball)
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)
+        scene.add(ambientLight)
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
+        directionalLight.position.set(5, 10, 5)
+        scene.add(directionalLight)
+
+
         // Renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true })
         renderer.setSize(mount.clientWidth, mount.clientHeight)
         mount.appendChild(renderer.domElement)
-        renderer.render(scene, camera)
 
-        {/* Cleanup when component unmounts */ }
+    
+        // Animation Loop
+        let animationId
+        const animate = () => {
+            animationId = requestAnimationFrame(animate)
+            renderer.render(scene, camera)
+        }
+        animate()
+ 
+
+        // Cleanup when component unmounts 
         return () => {
+            cancelAnimationFrame(animationId)
             mount.removeChild(renderer.domElement)
             renderer.dispose()
         }
