@@ -4,6 +4,7 @@ import * as THREE from "three"
 // importing Scene components
 import createVolleyball from "./createVolleyball";
 import createLighting from "./createLighting";
+import createNet from "./createNet";
 
 function Scene() {
     const mountRef = useRef(null)
@@ -40,13 +41,15 @@ function Scene() {
 
 
         {/* Things added to the Scene */ }
-        
         // Volleyball
         const ball = createVolleyball(scene)
 
         // Lighting
         const ambientLight = createLighting(scene)
         const directionalLight = createLighting(scene)
+
+        const netGroup = createNet(scene)
+
 
         // Cleanup when component unmounts 
         return () => {
