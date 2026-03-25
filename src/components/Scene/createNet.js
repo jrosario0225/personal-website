@@ -53,9 +53,6 @@ function createNet(scene) {
         netGroup.add(new THREE.Line(geo, netMat))
     }
 
-
-
-
     scene.add(netGroup)
     return netGroup
 

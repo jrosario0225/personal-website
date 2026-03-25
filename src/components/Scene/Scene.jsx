@@ -6,6 +6,9 @@ import createVolleyball from "./createVolleyball";
 import createLighting from "./createLighting";
 import createNet from "./createNet";
 
+// importing Physics
+import useVolleyball from "../../hooks/useVolleyball"
+
 function Scene() {
     const mountRef = useRef(null)
 
@@ -31,34 +34,34 @@ function Scene() {
         mount.appendChild(renderer.domElement)
 
 
+        // (1) Volleyball
+        const ball = createVolleyball(scene)
+
+        // (2) Lighting
+        const ambientLight = createLighting(scene)
+        const directionalLight = createLighting(scene)
+
+        // (3) Net
+        const netGroup = createNet(scene)
+
+
+        // Gravity 
+        const { update } = useVolleyball(ball)
+
         // Animation Loop
         let animationId
         const animate = () => {
             animationId = requestAnimationFrame(animate)
+            update() // updates the ball's position
             renderer.render(scene, camera)
         }
         animate()
 
-
-        {/* Things added to the Scene */ }
-        // Volleyball
-        const ball = createVolleyball(scene)
-
-        // Lighting
-        const ambientLight = createLighting(scene)
-        const directionalLight = createLighting(scene)
-
-        // Net
-        const netGroup = createNet(scene)
-
-
-        // Cleanup when component unmounts 
         return () => {
             cancelAnimationFrame(animationId)
             mount.removeChild(renderer.domElement)
             renderer.dispose()
         }
-
     }, [])
 
     return (
