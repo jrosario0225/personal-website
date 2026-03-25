@@ -7,7 +7,7 @@ import createLighting from "./createLighting";
 import createNet from "./createNet";
 
 // importing Physics
-import useVolleyball from "../../hooks/useVolleyball"
+import createPhysics from "../createPhysics"
 
 function Scene() {
     const mountRef = useRef(null)
@@ -46,7 +46,7 @@ function Scene() {
 
 
         // Gravity 
-        const { update } = useVolleyball(ball)
+        const { velocity, update } = createPhysics(ball)
 
         // Animation Loop
         let animationId
