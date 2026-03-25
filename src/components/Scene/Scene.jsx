@@ -9,6 +9,9 @@ import createNet from "./createNet";
 // importing Physics
 import createPhysics from "../createPhysics"
 
+// importing Mouse
+import createMouseTracking from "../createMouseTracking";
+
 function Scene() {
     const mountRef = useRef(null)
 
@@ -48,6 +51,9 @@ function Scene() {
         // Gravity 
         const { velocity, update } = createPhysics(ball)
 
+        // Mouse
+        const { mouse, onMouseMove } = createMouseTracking(mount)
+
         // Animation Loop
         let animationId
         const animate = () => {
@@ -60,6 +66,7 @@ function Scene() {
         return () => {
             cancelAnimationFrame(animationId)
             mount.removeChild(renderer.domElement)
+            mount.removeEventListener("mousemove", onMouseMove)
             renderer.dispose()
         }
     }, [])
