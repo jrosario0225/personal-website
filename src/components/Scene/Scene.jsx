@@ -52,6 +52,9 @@ function Scene() {
         // (3) Net
         const netGroup = createNet(scene)
 
+        // (4) Floor
+        const floor = createFloor(scene)
+
 
         // Gravity 
         const { velocity, update } = createPhysics(ball)

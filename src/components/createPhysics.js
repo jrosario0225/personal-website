@@ -26,11 +26,11 @@ function createPhysics(ball) {
         const wallX = 4
         if (ball.position.x >= wallX - ballRadius) {
             ball.position.x = wallX - ballRadius
-            velocity.x *= -0.8
+            velocity.x *= 0
         }
         if (ball.position.x <= -wallX + ballRadius) {
             ball.position.x = -wallX + ballRadius
-            velocity.x *= -0.8
+            velocity.x *= 0
         }
 
     }
