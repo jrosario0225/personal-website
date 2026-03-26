@@ -16,7 +16,7 @@ function createHitDetection(ball, mouse, camera, velocity) {
         if (distance < hitRadius) {
             
             // ball is moved from direction it's hit
-            const hitForce = 0.15
+            const hitForce = 0.015
             velocity.x = (ballPos.x - mouse.x) * hitForce * 10
             velocity.y = (ballPos.y - mouse.y) * hitForce * 10
 

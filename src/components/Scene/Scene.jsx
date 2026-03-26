@@ -5,6 +5,7 @@ import * as THREE from "three"
 import createVolleyball from "./createVolleyball";
 import createLighting from "./createLighting";
 import createNet from "./createNet";
+import createFloor from "./createFloor";
 
 // importing Physics
 import createPhysics from "../createPhysics"
@@ -32,7 +33,8 @@ function Scene() {
             0.1,
             1000
         )
-        camera.position.z = 5
+        camera.position.set(6, 5, 7)
+        camera.lookAt(0, 0, 0)
 
         // Renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true })
