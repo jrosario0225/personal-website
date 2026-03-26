@@ -58,7 +58,7 @@ function Scene() {
         const { mouse, onMouseMove } = createMouseTracking(mount)
 
         // Hit Detection
-        const { checkHit } = createHitDetection(ball, mouse, camera)
+        const { checkHit } = createHitDetection(ball, mouse, camera, velocity)
 
         // Animation Loop
         let animationId
@@ -66,7 +66,7 @@ function Scene() {
         const animate = () => {
             animationId = requestAnimationFrame(animate)
             update() // updates the ball's position
-            if(checkHit()) console.log("Hit!")
+            if(checkHit()) {}
             renderer.render(scene, camera)
         }
         animate()

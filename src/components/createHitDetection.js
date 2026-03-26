@@ -1,5 +1,5 @@
 
-function createHitDetection(ball, mouse, camera) {
+function createHitDetection(ball, mouse, camera, velocity) {
     const hitRadius = 0.2
 
     const checkHit = () => {
@@ -13,7 +13,16 @@ function createHitDetection(ball, mouse, camera) {
         const dy = mouse.y - ballPos.y
         const distance = Math.sqrt((dx * dx) + (dy * dy))
 
-        return distance < hitRadius
+        if (distance < hitRadius) {
+            
+            // ball is moved from direction it's hit
+            const hitForce = 0.15
+            velocity.x = (ballPos.x - mouse.x) * hitForce * 10
+            velocity.y = (ballPos.y - mouse.y) * hitForce * 10
+
+            // Always guarantee upward pop
+            if (velocity.y < 0.05) velocity.y = 0.05
+        }
     }
 
     return { checkHit }
