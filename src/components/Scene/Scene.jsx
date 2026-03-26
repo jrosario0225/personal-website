@@ -12,6 +12,9 @@ import createPhysics from "../createPhysics"
 // importing Mouse
 import createMouseTracking from "../createMouseTracking";
 
+// importing Hit Detection
+import createHitDetection from "../createHitDetection";
+
 function Scene() {
     const mountRef = useRef(null)
 
@@ -51,14 +54,19 @@ function Scene() {
         // Gravity 
         const { velocity, update } = createPhysics(ball)
 
-        // Mouse
+        // Mouse Tracking
         const { mouse, onMouseMove } = createMouseTracking(mount)
+
+        // Hit Detection
+        const { checkHit } = createHitDetection(ball, mouse, camera)
 
         // Animation Loop
         let animationId
+
         const animate = () => {
             animationId = requestAnimationFrame(animate)
             update() // updates the ball's position
+            if(checkHit()) console.log("Hit!")
             renderer.render(scene, camera)
         }
         animate()
