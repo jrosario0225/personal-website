@@ -10,6 +10,7 @@ import createWindow from "./createWindow";
 import createOrbitControls from "./createOrbitControls";
 import createDust from "./createDust"
 
+
 // importing Physics
 import createPhysics from "../createPhysics"
 
@@ -20,7 +21,6 @@ import createMouseTracking from "../createMouseTracking";
 import createHitDetection from "../createHitDetection";
 
 
-
 function Scene() {
     const mountRef = useRef(null)
 
@@ -29,8 +29,7 @@ function Scene() {
 
         // Scene
         const scene = new THREE.Scene()
-        scene.background = new THREE.Color("#A1A1A1") 
-
+        
         // Camera
         const camera = new THREE.PerspectiveCamera(
             75,
@@ -39,16 +38,19 @@ function Scene() {
             1000
         )
         camera.position.set(6, 5, 7)
-    
+
         camera.lookAt(0, 0, 0)
 
         // Renderer
-        const renderer = new THREE.WebGLRenderer({ antialias: true })
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
         renderer.setSize(mount.clientWidth, mount.clientHeight)
         mount.appendChild(renderer.domElement)
 
         renderer.shadowMap.enabled = true
         renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
+        renderer.setClearColor(0x000000, 0) // transparent bg
+        renderer.setClearAlpha(0)
 
         // Move camera
         const controls = createOrbitControls(camera, mount)
@@ -58,8 +60,7 @@ function Scene() {
         const ball = createVolleyball(scene)
 
         // (2) Lighting
-        const ambientLight = createLighting(scene)
-        const directionalLight = createLighting(scene)
+        const { ambientLight, directionalLight } = createLighting(scene)
 
         // (3) Net
         const netGroup = createNet(scene)
@@ -68,7 +69,7 @@ function Scene() {
         const floor = createFloor(scene)
 
         // (5) Window
-        const window = createWindow(scene)
+        const courtWindow = createWindow(scene)
 
         const { update: updateDust } = createDust(scene)
 
@@ -89,7 +90,7 @@ function Scene() {
             controls.update()
             update() // updates the ball's position
             updateDust()
-            if(checkHit()) {}
+            if (checkHit()) { }
             renderer.render(scene, camera)
         }
         animate()
@@ -103,7 +104,12 @@ function Scene() {
     }, [])
 
     return (
-        <div ref={mountRef} style={{ width: "100vw", height: "100vh" }} />
+        <div ref={mountRef}
+            style={{
+                width: "100vw",
+                height: "100vh",
+                background:"radial-gradient(circle at center, #fff8e7 0%, #c8956c 100%)"
+            }} />
     )
 }
 
