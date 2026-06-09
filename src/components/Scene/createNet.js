@@ -8,6 +8,8 @@ function createNet(scene) {
     const netY = -0.5
     const netZ = -1
 
+    netGroup.position.set(-1.5, -1.75, -2)
+
 
     // Left pole
     const poleGeo = new THREE.CylinderGeometry(0.06, 0.06, 2.5, 16)

@@ -8,4 +8,6 @@ body, #root {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  margin: 0;
+  background: linear-gradient((to top, #dbeafe, #f2f0ef))
 }

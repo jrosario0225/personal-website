@@ -28,7 +28,7 @@ function Scene() {
 
         // Scene
         const scene = new THREE.Scene()
-        scene.background = new THREE.Color(0x87CEEB) // sky blue
+        scene.background = new THREE.Color("#A1A1A1") 
 
         // Camera
         const camera = new THREE.PerspectiveCamera(

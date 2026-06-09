@@ -63,8 +63,8 @@ function createFloor(scene) {
 
     const lineTexture = new THREE.CanvasTexture(lineCanvas)
 
-    const linesGeo = new THREE.PlaneGeometry(8, 12)
-    const linesMat = new THREE.MeshBasicMaterial( {
+    const linesGeo = new THREE.PlaneGeometry(6.5, 12)
+    const linesMat = new THREE.MeshBasicMaterial({
         map: lineTexture,
         transparent: true,
         opacity: 1,
@@ -73,7 +73,7 @@ function createFloor(scene) {
 
     const lines = new THREE.Mesh(linesGeo, linesMat)
     lines.rotation.x = -Math.PI / 2
-    lines.position.set(-1.75, -2.99, -3.25)
+    lines.position.set(-1.5, -2.99, -3)
     scene.add(lines)
 
 
