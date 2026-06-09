@@ -55,6 +55,13 @@ function createNet(scene) {
         netGroup.add(new THREE.Line(geo, netMat))
     }
 
+    leftPole.castShadow = true
+    rightPole.castShadow = true
+    
+    netGroup.traverse((child) => {
+        if (child.isMesh) child.castShadow = true
+    })
+
     scene.add(netGroup)
     return netGroup
 

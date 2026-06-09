@@ -77,8 +77,6 @@ function createFloor(scene) {
     scene.add(lines)
 
 
-
-
     const texture = new THREE.CanvasTexture(canvas)
     texture.wrapS = THREE.RepeatWrapping
     texture.wrapT = THREE.RepeatWrapping
@@ -91,6 +89,8 @@ function createFloor(scene) {
     floor.rotation.x = -Math.PI / 2
     floor.position.set(-2, -3, -4)
     scene.add(floor)
+
+    floor.receiveShadow = true
 
     return floor
 

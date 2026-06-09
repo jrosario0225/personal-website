@@ -64,7 +64,7 @@ function createWindow(scene) {
         const spread = 0.8
         const x = -1.4 + (i / (rayCount - 1)) * 2.8
         const topY = 3.5
-        const bottomY = -3
+        const bottomY = -1
         const fanX = (x / 1.4 ) * 5
     
 

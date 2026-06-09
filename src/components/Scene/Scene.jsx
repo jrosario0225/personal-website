@@ -8,6 +8,7 @@ import createNet from "./createNet";
 import createFloor from "./createFloor";
 import createWindow from "./createWindow";
 import createOrbitControls from "./createOrbitControls";
+import createDust from "./createDust"
 
 // importing Physics
 import createPhysics from "../createPhysics"
@@ -46,6 +47,9 @@ function Scene() {
         renderer.setSize(mount.clientWidth, mount.clientHeight)
         mount.appendChild(renderer.domElement)
 
+        renderer.shadowMap.enabled = true
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
         // Move camera
         const controls = createOrbitControls(camera, mount)
 
@@ -66,6 +70,7 @@ function Scene() {
         // (5) Window
         const window = createWindow(scene)
 
+        const { update: updateDust } = createDust(scene)
 
         // Gravity 
         const { velocity, update } = createPhysics(ball)
@@ -83,6 +88,7 @@ function Scene() {
             animationId = requestAnimationFrame(animate)
             controls.update()
             update() // updates the ball's position
+            updateDust()
             if(checkHit()) {}
             renderer.render(scene, camera)
         }

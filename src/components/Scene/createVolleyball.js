@@ -9,6 +9,8 @@ function createVolleyball(scene) {
     const ballMaterial = new THREE.MeshPhongMaterial({ map: texture })
     const ball = new THREE.Mesh(ballGeometry, ballMaterial)
     ball.position.set(0, 0, 0)
+
+    ball.castShadow = true
     
     scene.add(ball)
     return ball
