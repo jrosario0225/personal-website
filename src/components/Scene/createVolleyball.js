@@ -1,19 +1,34 @@
+
 import * as THREE from "three"
-import createVolleyballTexture from "../../assets/createVolleyballTexture"
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader"
 
 function createVolleyball(scene) {
-    const canvas = createVolleyballTexture()
-    const texture = new THREE.CanvasTexture(canvas)
+    // Placeholder to allow physics to run without error
 
-    const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32)
-    const ballMaterial = new THREE.MeshPhongMaterial({ map: texture })
-    const ball = new THREE.Mesh(ballGeometry, ballMaterial)
+    const ball = new THREE.Group()
     ball.position.set(0, 0, 0)
-
-    ball.castShadow = true
-    
     scene.add(ball)
+
+    const loader = new FBXLoader()
+    loader.load("/models/mikasa/Mikasa V200W.fbx", (model) => {
+        const texture = new THREE.TextureLoader().load(
+            "/models/mikasa/MikasaV200W_MikasaV200W_Material_BaseColor.png"
+        )
+
+        model.traverse((child) => {
+            if (child.isMesh) {
+                child.material = new THREE.MeshPhongMaterial({ map: texture })
+                child.castShadow = true
+            }
+        })
+
+        // Scale the model down to match our ball radius (-0.5)
+        model.scale.set(0.005, 0.005, 0.005)
+
+        ball.add(model)
+    })
+
     return ball
 }
 
-export default createVolleyball;
+export default createVolleyball

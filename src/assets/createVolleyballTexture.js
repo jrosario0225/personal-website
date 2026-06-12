@@ -1,50 +1,38 @@
-// WORK ON THIS LATER
-
 function createVolleyballTexture() {
-    const size = 512
+    const size = 1024
     const canvas = document.createElement("canvas")
     canvas.width = size
-    canvas.height = size
+    canvas.height = size / 2
     const ctx = canvas.getContext('2d')
-    const s = size
+    const w = canvas.width
+    const h = canvas.height
 
-    // Warm yellow base
+    // Base yellow
     ctx.fillStyle = "#F2C94C"
-    ctx.fillRect(0, 0, s, s)
+    ctx.fillRect(0, 0, w, h)
 
-    // Single bold blue swoosh across the middle
+    // Blue circular panels
     ctx.fillStyle = "#2D5BE3"
+    const radius = h * 0.35
 
-    ctx.beginPath()
-    ctx.moveTo(0, s * 0.35)
-    ctx.bezierCurveTo(s * 0.25, s * 0.3, s * 0.75, s * 0.4, s, s * 0.35)
-    ctx.lineTo(s, s * 0.65)
-    ctx.bezierCurveTo(s * 0.75, s * 0.6, s * 0.25, s * 0.7, 0, s * 0.65)
-    ctx.closePath()
-    ctx.fill()
+    const positions = [
+        [w * 0.15, h * 0.3],
+        [w * 0.5, h * 0.7],
+        [w * 0.85, h * 0.3]
+    ]
 
-    // Soft white seam lines
-    ctx.strokeStyle = "#ffffff"
-    ctx.lineWidth = 8
-    ctx.lineCap = "round"
-
-    // Top seam
-    ctx.beginPath()
-    ctx.moveTo(0, s * 0.35)
-    ctx.bezierCurveTo(s * 0.25, s * 0.3, s * 0.75, s * 0.4, s, s * 0.35)
-    ctx.stroke()
-
-    // Bottom seam
-    ctx.beginPath()
-    ctx.moveTo(0, s * 0.65)
-    ctx.bezierCurveTo(s * 0.25, s * 0.7, s * 0.75, s * 0.6, s, s * 0.65)
-    ctx.stroke()
-
-    // Vertical seam
-    ctx.beginPath()
-    ctx.moveTo(s * 0.5, 0)
-    ctx.bezierCurveTo(s * 0.45, s * 0.25, s * 0.55, s * 0.75, s * 0.5, s)
-    ctx.stroke()
+    positions.forEach(([x, y]) => {
+        ctx.beginPath()
+        ctx.arc(x, y, radius, 0, Math.PI * 2)
+        ctx.fill()
+        // Draw again at wrapped edges for seamless tiling
+        ctx.beginPath()
+        ctx.arc(x - w, y, radius, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.beginPath()
+        ctx.arc(x + w, y, radius, 0, Math.PI * 2)
+        ctx.fill()
+    })
 
     return canvas
 }
