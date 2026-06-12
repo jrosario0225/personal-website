@@ -9,7 +9,7 @@ import createFloor from "./createFloor";
 import createWindow from "./createWindow";
 import createOrbitControls from "./createOrbitControls";
 import createDust from "./createDust"
-
+import createBenches from "./createBenches"
 
 // importing Physics
 import createPhysics from "../createPhysics"
@@ -71,6 +71,9 @@ function Scene() {
         // (5) Window
         const courtWindow = createWindow(scene)
 
+        // (6) Benches
+        const benches = createBenches(scene)
+
         const { update: updateDust } = createDust(scene)
 
         // Gravity 
@@ -108,7 +111,7 @@ function Scene() {
             style={{
                 width: "100vw",
                 height: "100vh",
-                background:"radial-gradient(circle at center, #fff8e7 0%, #c8956c 100%)"
+                background: "radial-gradient(circle at center, #fffff0 0%, #c4a882 45%)"
             }} />
     )
 }
