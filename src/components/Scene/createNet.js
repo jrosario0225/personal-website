@@ -8,7 +8,7 @@ function createNet(scene) {
     const netY = -0.5
     const netZ = -1
 
-    netGroup.position.set(-1.5, -1.75, -2)
+    netGroup.position.set(-1.5, -1.75, -3)
 
 
     // Left pole

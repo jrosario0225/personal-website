@@ -37,10 +37,10 @@ function createBenches(scene) {
     }
 
     // Left side bench
-    createBench(2, 0, (Math.PI / 2 ))
+    createBench(2, -1, (Math.PI / 2 ))
 
     // Right side bench
-    createBench(2, -6, (Math.PI / 2 ))
+    createBench(2, -7, (Math.PI / 2 ))
 
     scene.add(group)
     return group

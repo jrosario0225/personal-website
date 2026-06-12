@@ -10,6 +10,7 @@ import createWindow from "./createWindow";
 import createOrbitControls from "./createOrbitControls";
 import createDust from "./createDust"
 import createBenches from "./createBenches"
+import createScoreboard from "./createScoreboard";
 
 // importing Physics
 import createPhysics from "../createPhysics"
@@ -37,9 +38,10 @@ function Scene() {
             0.1,
             1000
         )
-        camera.position.set(6, 5, 7)
+        // camera.position.set(6, 3, 7)
+        camera.position.set(4, 1, 4)
 
-        camera.lookAt(0, 0, 0)
+        camera.lookAt(-2, -1, -4)
 
         // Renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
@@ -73,6 +75,9 @@ function Scene() {
 
         // (6) Benches
         const benches = createBenches(scene)
+
+        // (7) Scoreboard
+        const scoreboard = createScoreboard(scene)
 
         const { update: updateDust } = createDust(scene)
 

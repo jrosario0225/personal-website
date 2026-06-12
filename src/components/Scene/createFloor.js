@@ -73,7 +73,7 @@ function createFloor(scene) {
 
     const lines = new THREE.Mesh(linesGeo, linesMat)
     lines.rotation.x = -Math.PI / 2
-    lines.position.set(-1.5, -2.99, -3)
+    lines.position.set(-1.5, -2.97, -4)
     scene.add(lines)
 
 
@@ -82,7 +82,7 @@ function createFloor(scene) {
     texture.wrapT = THREE.RepeatWrapping
     texture.repeat.set(3, 3)
 
-    const floorGeo = new THREE.PlaneGeometry(10, 15)
+    const floorGeo = new THREE.BoxGeometry(10, 14, 0.05)
     const floorMat = new THREE.MeshPhongMaterial({ map: texture })
     const floor = new THREE.Mesh(floorGeo, floorMat)
 
