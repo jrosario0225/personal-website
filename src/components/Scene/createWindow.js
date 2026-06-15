@@ -58,7 +58,7 @@ function createWindow(scene) {
         depthWrite: false
     })
 
-    const rayCount = 50
+    const rayCount = 100
     for (let i = 0; i < rayCount; i++) {
         const rayGeo = new THREE.BufferGeometry()
         const spread = 0.8

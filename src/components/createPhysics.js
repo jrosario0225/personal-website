@@ -1,6 +1,6 @@
 
 function createPhysics(ball) {
-    const velocity = ({ x:0, y:0, z:0 })
+    const velocity = ({ x: 0, y: 0, z: 0 })
     const gravity = -0.002
     const ballRadius = 0.5
     const floorY = -3
@@ -15,6 +15,10 @@ function createPhysics(ball) {
         ball.position.y += velocity.y
         ball.position.z += velocity.z
 
+        // for rotation
+        ball.rotation.z -= velocity.x * 2
+        ball.rotation.x += velocity.x * 2
+
 
         // What happens if the ball touches the ground/floor
         if (ball.position.y <= floorY + ballRadius) {
@@ -23,7 +27,10 @@ function createPhysics(ball) {
         }
 
         // Wall bouncing
-        const wallX = 4
+        const wallX = 3
+
+        // group.position.set(-4, -2, -4)
+        // group.rotation.y = Math.PI / 2
         if (ball.position.x >= wallX - ballRadius) {
             ball.position.x = wallX - ballRadius
             velocity.x *= 0.2

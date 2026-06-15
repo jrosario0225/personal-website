@@ -23,7 +23,8 @@ function createVolleyball(scene) {
         })
 
         // Scale the model down to match our ball radius (-0.5)
-        model.scale.set(0.005, 0.005, 0.005)
+        model.scale.set(0.003, 0.003, 0.003)
+        model.position.set(0, -0.123, 0)
 
         ball.add(model)
     })
