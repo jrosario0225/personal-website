@@ -4,6 +4,18 @@ function createPhysics(ball) {
     const gravity = -0.002
     const ballRadius = 0.5
     const floorY = -3
+    ball.position.y = -1
+
+    // Creating side wall boundary (invisible)
+    const floorCenterX = -2  // center coordinate
+    const floorWidth = 5 // taken from createFloor.js
+
+    // Left wall
+    const wallXMin = floorCenterX - floorWidth / 2 + ballRadius
+
+    // Right wall
+    const wallXMax = floorCenterX + floorWidth / 2 + ballRadius
+
 
     // How the ball will keep moving through the scene
     const update = () => {
@@ -27,16 +39,14 @@ function createPhysics(ball) {
         }
 
         // Wall bouncing
-        const wallX = 3
-
-        // group.position.set(-4, -2, -4)
-        // group.rotation.y = Math.PI / 2
-        if (ball.position.x >= wallX - ballRadius) {
-            ball.position.x = wallX - ballRadius
+        
+    
+        if (ball.position.x >= wallXMax) {
+            ball.position.x = wallXMax
             velocity.x *= 0.2
         }
-        if (ball.position.x <= -wallX + ballRadius) {
-            ball.position.x = -wallX + ballRadius
+        if (ball.position.x <= wallXMin) {
+            ball.position.x = wallXMin
             velocity.x *= 0.2
         }
 
