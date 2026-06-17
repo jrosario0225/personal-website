@@ -1,6 +1,6 @@
 
-function createHitDetection(ball, mouse, camera, velocity) {
-    const hitRadius = 0.2
+function createHitDetection(ball, mouse, camera, velocity, angularVelocity) {
+    const hitRadius = 0.1
 
     const checkHit = () => {
 
@@ -22,6 +22,11 @@ function createHitDetection(ball, mouse, camera, velocity) {
 
             // Always guarantee upward pop
             if (velocity.y < 0.05) velocity.y = 0.05
+
+            // Set spin based on the hit
+            angularVelocity.z = -velocity.x * 0.5
+            angularVelocity.x = velocity.y * 0.5
+           
         }
     }
 

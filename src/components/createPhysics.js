@@ -1,10 +1,14 @@
 
 function createPhysics(ball) {
     const velocity = ({ x: 0, y: 0, z: 0 })
-    const gravity = -0.002
-    const ballRadius = 0.5
+    const angularVelocity = { x: 0, z: 0 }
+
+    const gravity = -0.01
+
+    const ballRadius = 0.38
+
     const floorY = -3
-    ball.position.y = -1
+    ball.position.y = -2
 
     // Creating side wall boundary (invisible)
     const floorCenterX = -2  // center coordinate
@@ -28,14 +32,29 @@ function createPhysics(ball) {
         ball.position.z += velocity.z
 
         // for rotation
-        ball.rotation.z -= velocity.x * 2
-        ball.rotation.x += velocity.x * 2
+        ball.rotation.z -= angularVelocity.z
+        ball.rotation.x += angularVelocity.x
 
 
         // What happens if the ball touches the ground/floor
         if (ball.position.y <= floorY + ballRadius) {
             ball.position.y = floorY + ballRadius
             velocity.y *= -0.8
+            angularVelocity.x *= 0.5
+            angularVelocity.z *= 0.5
+
+            // Friction
+            velocity.x *= 0.97
+
+            // Settle completely once movement is negligible
+            if (Math.abs(velocity.y) < 0.01) {
+                velocity.y = 0
+            }
+            if (Math.abs(velocity.x) < 0.0002) {
+                velocity.x = 0
+            }
+        
+
         }
 
         // Wall bouncing
@@ -52,7 +71,7 @@ function createPhysics(ball) {
 
     }
 
-    return { velocity, update }
+    return { velocity, angularVelocity, update }
 
 }
 

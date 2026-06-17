@@ -30,7 +30,7 @@ function Scene() {
 
         // Scene
         const scene = new THREE.Scene()
-        
+
         // Camera
         const camera = new THREE.PerspectiveCamera(
             75,
@@ -82,13 +82,22 @@ function Scene() {
         const { update: updateDust } = createDust(scene)
 
         // Gravity 
-        const { velocity, update } = createPhysics(ball)
+        const { velocity, angularVelocity, update } = createPhysics(ball)
 
         // Mouse Tracking
         const { mouse, onMouseMove } = createMouseTracking(mount)
 
         // Hit Detection
-        const { checkHit } = createHitDetection(ball, mouse, camera, velocity)
+        const { checkHit } = createHitDetection(ball, mouse, camera, velocity, angularVelocity)
+
+        // Handle window resize
+        const onWindowResize = () => {
+            camera.aspect = mount.clientWidth / mount.clientHeight
+            camera.updateProjectionMatrix()
+            renderer.setSize(mount.clientWidth, mount.clientHeight)
+        }
+
+        window.addEventListener("resize", onWindowResize)
 
         // Animation Loop
         let animationId
@@ -109,6 +118,8 @@ function Scene() {
             mount.removeEventListener("mousemove", onMouseMove)
             renderer.dispose()
         }
+
+
     }, [])
 
     return (
