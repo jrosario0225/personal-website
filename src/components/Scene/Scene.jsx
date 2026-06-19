@@ -39,9 +39,9 @@ function Scene() {
             1000
         )
         // camera.position.set(6, 3, 7)
-        camera.position.set(4, 1, 4)
+        camera.position.set(3.5, 0, 3.5)
 
-        camera.lookAt(-2, -1, -4)
+
 
         // Renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })

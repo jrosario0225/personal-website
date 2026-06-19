@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from "react"
+
 import Scene from "./components/Scene/Scene.jsx"
+import Dashboard from "./components/Dashboard/Dashboard.jsx"
 
 
 function App() {
@@ -23,11 +25,13 @@ function App() {
         height: "100vh",
         backgroundColor: "#c4a882",
         opacity: fadeOut ? 0: 1,
-        transition: "opacity 1.2s ease",
+        transition: "opacity 0.25s ease",
         pointerEvents: fadeOut ? "none" : "auto",
         zIndex: 999
       }}
       />
+
+      <Dashboard />
     </>
   )
 }

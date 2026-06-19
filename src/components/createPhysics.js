@@ -3,12 +3,12 @@ function createPhysics(ball) {
     const velocity = ({ x: 0, y: 0, z: 0 })
     const angularVelocity = { x: 0, z: 0 }
 
-    const gravity = -0.01
+    const gravity = -0.002
 
     const ballRadius = 0.38
 
     const floorY = -3
-    ball.position.y = -2
+    ball.position.y = -1
 
     // Creating side wall boundary (invisible)
     const floorCenterX = -2  // center coordinate
