@@ -1,7 +1,11 @@
 
-function Dashboard({ onMenuClick }) {
-    const menuItems = ["About", "Projects", "Contact Me"]
+import useModalState from "./useModalState"
+import Modal from "./Modal"
 
+
+function Dashboard({ onMenuClick }) {
+    const { activeModal, currentIndex, openModal, closeModal, goNext, goPrev, menuItems} = useModalState()
+   
     return (
         <>
             <div style={{
@@ -31,7 +35,7 @@ function Dashboard({ onMenuClick }) {
                 {menuItems.map((item) => (
                     <button
                         key={item}
-                        onClick={() => onMenuClick(item)}
+                        onClick={() => openModal(item)}
                         style={{
                             background: "none",
                             border: "none",
@@ -45,6 +49,18 @@ function Dashboard({ onMenuClick }) {
                     </button>
                 ))}
             </div>
+
+            {/* Modal */}
+            {activeModal && (
+                <Modal 
+                activeModal={activeModal}
+                currentIndex={currentIndex}
+                menuItems={menuItems}
+                onClose={closeModal}
+                onNext={goNext}
+                onPrev={goPrev}
+                />
+            )}
 
 
         </>
