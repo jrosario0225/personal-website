@@ -6,7 +6,7 @@ import * as THREE from "three"
 
 
 function createDust(scene) {
-    const particleCount = 100
+    const particleCount = 75
     const positions = new Float32Array(particleCount * 3)
     const velocities = []
 

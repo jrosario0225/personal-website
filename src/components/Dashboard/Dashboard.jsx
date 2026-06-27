@@ -14,7 +14,7 @@ function Dashboard({ onMenuClick }) {
                 left: "50%",
                 transform: "translateX(-50%)",
                 fontSize: "2.5rem",
-                fontWeight: 500,
+                fontWeight: 300,
                 color: "#3a2e22",
                 textShadow: "0 2px 8px rgba(255, 255, 255, 0.5)",
                 zIndex: 10,

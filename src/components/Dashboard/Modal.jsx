@@ -19,72 +19,75 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                 zIndex: 100
             }}
         >
-            {/* Left arrow — now a sibling, not a child of the modal box */}
-            {!isFirst && (
-                <button
-                    onClick={(e) => { e.stopPropagation(); onPrev() }}
-                    style={{
-                        position: "fixed",
-                        left: "12%",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        background: "none",
-                        border: "none",
-                        fontSize: "2rem",
-                        cursor: "pointer",
-                        color: "#f5f0e8",
-                        zIndex: 101,
-                        fontSize: "60px"
-                    }}
-                >
-                    ‹
-                </button>
-            )}
-
-            {/* Right arrow */}
-            {!isLast && (
-                <button
-                    onClick={(e) => { e.stopPropagation(); onNext() }}
-                    style={{
-                        position: "fixed",
-                        right: "12%",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        background: "none",
-                        border: "none",
-                        fontSize: "2rem",
-                        cursor: "pointer",
-                        color: "#f5f0e8",
-                        zIndex: 101,
-                        fontSize: "60px"
-                    }}
-                >
-                    ›
-                </button>
-            )}
-
-            {/* Modal box — arrows removed from here */}
+            {/* Wrapper — arrows and modal move together */}
             <div
                 onClick={(e) => e.stopPropagation()}
                 style={{
                     position: "relative",
-                    width: "min(800px, 90vw)",
-                    maxHeight: "80vh",
-                    backgroundColor: "#f5f0e8",
-                    borderRadius: "20px",
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-                    padding: "2.5rem",
-                    overflowY: "auto"
+                    display: "flex",
+                    alignItems: "center"
                 }}
             >
-                <h2 style={{ margin: 0, color: "#3a2e22", fontWeight: 500 }}>
-                    {activeModal}
-                </h2>
-                <hr style={{ border: "none", borderTop: "1px solid #d9cfc0", margin: "1rem 0" }} />
+                {/* Left arrow */}
+                {!isFirst && (
+                    <button
+                        onClick={(e) => { e.stopPropagation(); onPrev() }}
+                        style={{
+                            position: "absolute",
+                            left: "-60px",
+                            background: "none",
+                            border: "none",
+                            fontSize: "50px",
+                            cursor: "pointer",
+                            color: "#f5f0e8",
+                            zIndex: 101,
+                            lineHeight: 1
+                        }}
+                    >
+                        ‹
+                    </button>
+                )}
 
-                <div>
-                    Content for {activeModal} goes here.
+                {/* Modal box */}
+                <div
+                    style={{
+                        width: "min(800px, 90vw)",
+                        maxHeight: "80vh",
+                        backgroundColor: "#f5f0e8",
+                        borderRadius: "20px",
+                        boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+                        padding: "2.5rem",
+                        overflowY: "auto"
+                    }}
+                >
+                    <h2 style={{ margin: 0, color: "#3a2e22", fontWeight: 500 }}>
+                        {activeModal}
+                    </h2>
+                    <hr style={{ border: "none", borderTop: "1px solid #d9cfc0", margin: "1rem 0" }} />
+                    <div>
+                        Content for {activeModal} goes here.
+                    </div>
                 </div>
+
+                {/* Right arrow */}
+                {!isLast && (
+                    <button
+                        onClick={(e) => { e.stopPropagation(); onNext() }}
+                        style={{
+                            position: "absolute",
+                            right: "-60px",
+                            background: "none",
+                            border: "none",
+                            fontSize: "50px",
+                            cursor: "pointer",
+                            color: "#f5f0e8",
+                            zIndex: 101,
+                            lineHeight: 1
+                        }}
+                    >
+                        ›
+                    </button>
+                )}
             </div>
         </div>
     )
