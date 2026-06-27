@@ -1,3 +1,14 @@
+import AboutContent from "./Content/AboutContent";
+import ContactContent from "./Content/ContactContent";
+import ProjectsContent from "./Content/ProjectsContent";
+
+const contentMap= {
+    "About": AboutContent,
+    "Projects": ProjectsContent,
+    "Contact": ContactContent
+}
+
+
 function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }) {
     const isFirst = currentIndex === 0
     const isLast = currentIndex === menuItems.length - 1
@@ -53,7 +64,7 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                     style={{
                         width: "min(800px, 90vw)",
                         maxHeight: "80vh",
-                        backgroundColor: "#f5f0e8",
+                        backgroundColor: "#c4beac",
                         borderRadius: "20px",
                         boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
                         padding: "2.5rem",
@@ -65,7 +76,10 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                     </h2>
                     <hr style={{ border: "none", borderTop: "1px solid #d9cfc0", margin: "1rem 0" }} />
                     <div>
-                        Content for {activeModal} goes here.
+                        {(() => {
+                            const ActiveContent = contentMap[activeModal]
+                            return ActiveContent ? <ActiveContent /> : null
+                        })()}
                     </div>
                 </div>
 
