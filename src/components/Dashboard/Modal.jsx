@@ -64,7 +64,7 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                     style={{
                         width: "min(800px, 90vw)",
                         maxHeight: "80vh",
-                        backgroundColor: "#c4beac",
+                        backgroundColor: "#f1f0ed",
                         borderRadius: "20px",
                         boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
                         padding: "2.5rem",
