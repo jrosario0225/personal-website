@@ -1,3 +1,4 @@
+
 import raincouverImg from "../../../assets/raincouverImg.png"
 import websiteImg from "../../../assets/websiteImg.png"
 import spikeActionImg from "../../../assets/spikeActionImg.jpg"
@@ -14,7 +15,7 @@ const C = {
     tan: "#8b6f47",
     amber: "#d6890f",
     border: "#e2d8c8",
-    dark: "#161616",
+    dark: "#393838",
 }
 
 // ── Project data ─────────────────────────────────────────────
@@ -93,12 +94,12 @@ function Media({ media }) {
 
     if (media.type === "dual") {
         return (
-            <div style={{ ...base, backgroundColor: C.creamCard, padding: "1rem", gap: "0.75rem" }}>
+            <div style={{ ...base, backgroundColor: C.dark, padding: "1rem", gap: "0.75rem" }}>
                 {media.images.map((img) => (
                     <img
                         key={img.alt}
                         src={img.src}
-                        alt={img.alt}
+                        alt={img.alt} 
                         style={{
                             width: "50%",
                             height: "100%",
@@ -231,7 +232,7 @@ function ProjectRow({ project, reverse }) {
                 gridTemplateColumns: "1fr 1fr",
                 gap: "3rem",
                 padding: "3rem 0",
-                borderTop: `1px dashed ${C.amber}`,
+                borderBottom: `1px dashed ${C.amber}`,
                 alignItems: "center",
             }}
         >
@@ -263,18 +264,6 @@ const linkStyle = {
 export default function ProjectsContent() {
     return (
         <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-            <p
-                style={{
-                    fontSize: "12px",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: C.tan,
-                    marginBottom: "2.5rem",
-                    fontWeight: 600,
-                }}
-            >
-                Selected Work
-            </p>
 
             <div style={{ display: "flex", flexDirection: "column" }}>
                 {projects.map((project, i) => (
