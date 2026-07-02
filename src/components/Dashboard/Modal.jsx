@@ -2,7 +2,7 @@ import AboutContent from "./Content/AboutContent";
 import ContactContent from "./Content/ContactContent";
 import ProjectsContent from "./Content/ProjectsContent";
 
-const contentMap= {
+const contentMap = {
     "About": AboutContent,
     "Projects": ProjectsContent,
     "Contact": ContactContent
@@ -30,6 +30,8 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                 zIndex: 100
             }}
         >
+
+
             {/* Wrapper — arrows and modal move together */}
             <div
                 onClick={(e) => e.stopPropagation()}
@@ -60,7 +62,8 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                 )}
 
                 {/* Modal box */}
-                <div
+                {/* <div
+                    className="modal-box"
                     style={{
                         width: "min(800px, 90vw)",
                         maxHeight: "80vh",
@@ -80,6 +83,39 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                             const ActiveContent = contentMap[activeModal]
                             return ActiveContent ? <ActiveContent /> : null
                         })()}
+                    </div>
+                </div> */}
+
+                {/* Modal box — rounded shell that clips the scrollbar */}
+                <div
+                    className="modal-box"
+                    style={{
+                        width: "min(800px, 90vw)",
+                        backgroundColor: "#f1f0ed",
+                        borderRadius: "20px",
+                        boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+                        overflow: "hidden"          // this is what tames the corners
+                    }}
+                >
+                    {/* Inner scroller — this actually scrolls */}
+                    <div
+                        className="modal-scroll"
+                        style={{
+                            maxHeight: "80vh",
+                            overflowY: "auto",
+                            padding: "2.5rem"
+                        }}
+                    >
+                        <h2 style={{ margin: 0, color: "#3a2e22", fontWeight: 500 }}>
+                            {activeModal}
+                        </h2>
+                        <hr style={{ border: "none", borderTop: "1px solid #d9cfc0", margin: "1rem 0" }} />
+                        <div>
+                            {(() => {
+                                const ActiveContent = contentMap[activeModal]
+                                return ActiveContent ? <ActiveContent /> : null
+                            })()}
+                        </div>
                     </div>
                 </div>
 
@@ -103,6 +139,7 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                     </button>
                 )}
             </div>
+
         </div>
     )
 }
