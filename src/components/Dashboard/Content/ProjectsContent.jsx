@@ -1,4 +1,4 @@
-
+import { useState, useEffect } from "react"
 import raincouverImg from "../../../assets/raincouverImg.png"
 import websiteImg from "../../../assets/websiteImg.png"
 import spikeActionImg from "../../../assets/spikeActionImg.jpg"
@@ -16,6 +16,19 @@ const C = {
     amber: "#d6890f",
     border: "#e2d8c8",
     dark: "#393838",
+}
+
+// ── Hook: is the viewport mobile-width? ──────────────────────
+function useIsMobile(breakpoint = 768) {
+    const [isMobile, setIsMobile] = useState(
+        typeof window !== "undefined" ? window.innerWidth <= breakpoint : false
+    )
+    useEffect(() => {
+        const onResize = () => setIsMobile(window.innerWidth <= breakpoint)
+        window.addEventListener("resize", onResize)
+        return () => window.removeEventListener("resize", onResize)
+    }, [breakpoint])
+    return isMobile
 }
 
 // ── Project data ─────────────────────────────────────────────
@@ -73,36 +86,48 @@ const projects = [
             type: "dual",
             images: [
                 { src: statTrackerImg, alt: "Volleyball stat tracker dashboard" },
-                { src: whiteboardImg, alt: "Volleyball whiteboard "}
-            ]
+                { src: whiteboardImg, alt: "Volleyball whiteboard" },
+            ],
         },
     },
 ]
 
-// ── Sub-components ───────────────────────────────────────────
-function Media({ media }) {
+// ── Media block ──────────────────────────────────────────────
+function Media({ media, isMobile }) {
     const base = {
         width: "100%",
-        borderRadius: "20px",
+        borderRadius: isMobile ? "18px" : "20px",
         overflow: "hidden",
         border: `1px solid ${C.border}`,
-        aspectRatio: "4 / 3",
+        aspectRatio: isMobile ? "16 / 10" : "4 / 3",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
     }
 
     if (media.type === "dual") {
+        // On mobile: stack the two images vertically (full width each).
+        // On desktop: side-by-side halves.
         return (
-            <div style={{ ...base, backgroundColor: C.dark, padding: "1rem", gap: "0.75rem" }}>
+            <div
+                style={{
+                    ...base,
+                    backgroundColor: C.dark,
+                    padding: "0.75rem",
+                    gap: isMobile ? "0.6rem" : "0.75rem",
+                    flexDirection: isMobile ? "column" : "row",
+                    aspectRatio: isMobile ? "auto" : base.aspectRatio,
+                }}
+            >
                 {media.images.map((img) => (
                     <img
                         key={img.alt}
                         src={img.src}
-                        alt={img.alt} 
+                        alt={img.alt}
                         style={{
-                            width: "50%",
-                            height: "100%",
+                            width: isMobile ? "100%" : "50%",
+                            height: isMobile ? "auto" : "100%",
+                            maxHeight: isMobile ? "260px" : "none",
                             objectFit: "contain",
                             borderRadius: "10px",
                             display: "block",
@@ -131,74 +156,70 @@ function Media({ media }) {
     )
 }
 
-function ProjectRow({ project, reverse }) {
-    const meta = (
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
-            {/* Header: title + status/date */}
-            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "1rem" }}>
-                <h3 style={{ fontSize: "22px", fontWeight: 600, margin: 0, lineHeight: 1.25, color: C.brown }}>
-                    {project.title}
-                </h3>
-                {project.status ? (
-                    <span
-                        style={{
-                            fontSize: "11px",
-                            padding: "3px 10px",
-                            borderRadius: "999px",
-                            background: "rgba(214,137,15,0.12)",
-                            color: C.amber,
-                            border: "1px solid rgba(214,137,15,0.35)",
-                            fontWeight: 600,
-                            whiteSpace: "nowrap",
-                        }}
-                    >
-                        {project.status}
-                    </span>
-                ) : (
-                    <span style={{ fontSize: "12px", color: C.brownSoft, whiteSpace: "nowrap" }}>
-                        {project.date}
-                    </span>
-                )}
-            </div>
+// ── Shared meta pieces ───────────────────────────────────────
+function StatusOrDate({ project }) {
+    if (project.status) {
+        return (
+            <span
+                style={{
+                    display: "flex",
+                    fontSize: "11px",
+                    padding: "3px 10px",
+                    borderRadius: "999px",
+                    background: "rgba(214,137,15,0.12)",
+                    color: C.amber,
+                    border: "1px solid rgba(214,137,15,0.35)",
+                    fontWeight: 600,
+                    whiteSpace: "nowrap",
+                }}
+            >
+                {project.status}
+            </span>
+        )
+    }
+    return (
+        <span style={{ fontSize: "12px", color: C.brownSoft, whiteSpace: "nowrap" }}>
+            {project.date}
+        </span>
+    )
+}
 
-            <p style={{ fontSize: "13px", color: C.tan, fontStyle: "italic", margin: "-0.35rem 0 0" }}>
-                {project.subtitle}
-            </p>
+function Tags({ tags }) {
+    return (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "7px" }}>
+            {tags.map((tag) => (
+                <span
+                    key={tag}
+                    style={{
+                        fontSize: "11px",
+                        padding: "4px 11px",
+                        borderRadius: "999px",
+                        border: `1px solid ${C.border}`,
+                        color: C.brownSoft,
+                        backgroundColor: C.creamCard,
+                    }}
+                >
+                    {tag}
+                </span>
+            ))}
+        </div>
+    )
+}
 
-            <p style={{ fontSize: "14px", lineHeight: 1.65, color: C.brown, margin: 0 }}>
-                {project.description}
-            </p>
+function LiveLink({ url }) {
+    if (!url) return null
+    return (
+        <a href={url} target="_blank" rel="noopener noreferrer" style={linkStyle}>
+            Live site ↗
+        </a>
+    )
+}
 
-            {/* Tags */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "7px" }}>
-                {project.tags.map((tag) => (
-                    <span
-                        key={tag}
-                        style={{
-                            fontSize: "11px",
-                            padding: "4px 11px",
-                            borderRadius: "999px",
-                            border: `1px solid ${C.border}`,
-                            color: C.brownSoft,
-                            backgroundColor: C.creamCard,
-                        }}
-                    >
-                        {tag}
-                    </span>
-                ))}
-            </div>
-
-            {/* Links */}
-            {project.liveUrl && (
-                <div style={{ display: "flex", gap: "1.25rem" }}>
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" style={linkStyle}>
-                        Live site ↗
-                    </a>
-                </div>
-            )}
-
-            {/* Testimonials */}
-            {project.testimonials?.map((t) => (
+function Testimonials({ testimonials }) {
+    if (!testimonials?.length) return null
+    return (
+        <>
+            {testimonials.map((t) => (
                 <div
                     key={t.author}
                     style={{
@@ -220,10 +241,85 @@ function ProjectRow({ project, reverse }) {
                     </p>
                 </div>
             ))}
+        </>
+    )
+}
+
+// ── MOBILE layout: single column, stacked (per sketch) ───────
+function MobileProject({ project, isLast }) {
+    return (
+        <div
+            style={{
+                padding: "2rem 0",
+                borderBottom: isLast ? "none" : `1px dashed ${C.amber}`,
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.9rem",
+            }}
+        >
+            {/* Header: title + status left, tags + live pushed right */}
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem 0.75rem" }}>
+                <h3 style={{ fontSize: "24px", fontWeight: 600, margin: 0, lineHeight: 1.15, color: C.brown }}>
+                    {project.title}
+                </h3>
+                <StatusOrDate project={project} />
+                <p style={{ fontSize: "14px", color: C.tan, fontStyle: "italic", margin: 0 }}>
+                    {project.subtitle}
+                </p>
+                <span style={{ flex: "1 1 auto" }} />
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px", width: "100%" }}>
+                    <div>
+                        <Tags tags={project.tags} />
+                    </div>
+                    <div style={{ marginLeft: "auto" }}>
+                        <LiveLink url={project.liveUrl} />
+                    </div>
+                </div>
+            </div>
+
+            <Media media={project.media} isMobile />
+
+            <p style={{ fontSize: "14px", lineHeight: 1.65, color: C.brown, margin: 0 }}>
+                {project.description}
+            </p>
+
+            <Testimonials testimonials={project.testimonials} />
+        </div>
+    )
+}
+
+// ── DESKTOP layout: alternating two-column grid ──────────────
+function DesktopProject({ project, reverse }) {
+    const meta = (
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "1rem" }}>
+                <h3 style={{ fontSize: "22px", fontWeight: 600, margin: 0, lineHeight: 1.25, color: C.brown }}>
+                    {project.title}
+                </h3>
+                <StatusOrDate project={project} />
+            </div>
+
+            <p style={{ fontSize: "13px", color: C.tan, fontStyle: "italic", margin: "-0.35rem 0 0" }}>
+                {project.subtitle}
+            </p>
+
+            <p style={{ fontSize: "14px", lineHeight: 1.65, color: C.brown, margin: 0 }}>
+                {project.description}
+            </p>
+
+            <Tags tags={project.tags} />
+
+            {project.liveUrl && (
+                <div style={{ display: "flex", gap: "1.25rem" }}>
+                    <LiveLink url={project.liveUrl} />
+                </div>
+            )}
+
+            <Testimonials testimonials={project.testimonials} />
         </div>
     )
 
-    const mediaEl = <Media media={project.media} />
+    const mediaEl = <Media media={project.media} isMobile={false} />
 
     return (
         <div
@@ -262,13 +358,26 @@ const linkStyle = {
 
 // ── Main export ──────────────────────────────────────────────
 export default function ProjectsContent() {
+    const isMobile = useIsMobile()
+
     return (
         <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-
             <div style={{ display: "flex", flexDirection: "column" }}>
-                {projects.map((project, i) => (
-                    <ProjectRow key={project.title} project={project} reverse={i % 2 === 1} />
-                ))}
+                {projects.map((project, i) =>
+                    isMobile ? (
+                        <MobileProject
+                            key={project.title}
+                            project={project}
+                            isLast={i === projects.length - 1}
+                        />
+                    ) : (
+                        <DesktopProject
+                            key={project.title}
+                            project={project}
+                            reverse={i % 2 === 1}
+                        />
+                    )
+                )}
             </div>
         </div>
     )
