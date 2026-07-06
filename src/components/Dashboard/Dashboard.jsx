@@ -2,9 +2,13 @@
 import useModalState from "./useModalState"
 import Modal from "./Modal"
 
+import useIsMobile from "./Content/useIsMobile"
+
 
 function Dashboard({ onMenuClick }) {
     const { activeModal, currentIndex, openModal, closeModal, goNext, goPrev, menuItems} = useModalState()
+
+    const isMobile = useIsMobile()
    
     return (
         <>
@@ -13,12 +17,13 @@ function Dashboard({ onMenuClick }) {
                 top: "20%",
                 left: "50%",
                 transform: "translateX(-50%)",
-                fontSize: "2.5rem",
-                fontWeight: 300,
+                fontSize: isMobile ? "2rem" : "2.5rem",
+                fontWeight: 400,
                 color: "#3a2e22",
                 textShadow: "0 2px 8px rgba(255, 255, 255, 0.5)",
                 zIndex: 10,
-                pointerEvents: "none"
+                pointerEvents: "none",
+                width: isMobile ? "200px" : undefined
             }}>
                 Jacob Rosario
             </div>
@@ -29,7 +34,7 @@ function Dashboard({ onMenuClick }) {
                 left: "50%",
                 transform: "translateX(-50%)",
                 display: "flex",
-                gap: "8rem",
+                gap: isMobile ? "5rem" : "8rem",
                 zIndex: 10
             }}>
                 {menuItems.map((item) => (

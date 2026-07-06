@@ -1,5 +1,6 @@
 import contactGif from "../../../assets/contactGif.gif"
 
+import useIsMobile from "./useIsMobile"
 // ── Theme (matches AboutContent / ProjectsContent) ───────────
 const C = {
     cream: "#f5f0e8",
@@ -13,11 +14,13 @@ const C = {
 }
 
 function ContactContent() {
+    const isMobile = useIsMobile()
     return (
         <div
             style={{
                 display: "flex",
-                gap: "2.5rem",
+                flexDirection: isMobile ? "column" : "row",
+                gap: isMobile ? "1.75rem" : "2.5rem",
                 alignItems: "stretch",
                 color: C.brown,
             }}
@@ -29,7 +32,7 @@ function ContactContent() {
                     {/* Email */}
                     <div>
                         <div style={fieldLabel}>Email</div>
-                        <div style={fieldValue}>
+                        <div style={{ ...fieldValue, wordBreak: "break-word" }}>
                             jacobrosario0225@gmail.com
                         </div>
                     </div>
@@ -90,41 +93,84 @@ function ContactContent() {
             </div>
 
             {/* Right — gif (≈1/3), framed like the About photo */}
-            <div style={{ flex: 1.2, display: "flex", flexDirection: "column" }}>
-                <div
-                    style={{
-                        flex: 1,
-                        minHeight: "200px",
-                        borderRadius: "12px",
-                        overflow: "hidden",
-                        background: C.cream,
-                        border: `1px solid ${C.border}`,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    <img
-                        src={contactGif}
-                        alt="heh"
-                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                    />
-            </div>
-            <div
-                style={{
-                    fontStyle: "italic",
-                    fontSize: "1.2rem",
-                    color: C.dark,
-                    textAlign: "center",
-                    marginTop: "10px",
-                }}
-            >
-                Hope to hear from you!
-            </div>
+
+            {isMobile ? (
+                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                    <div
+                        style={{
+                            flex: 1,
+                            aspectRatio: "4 / 3",
+                            borderRadius: "12px",
+                            overflow: "hidden",
+                            background: C.cream,
+                            border: `1px solid ${C.border}`,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <img
+                            src={contactGif}
+                            alt="heh"
+                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            flexShrink: 0,
+                            width: "100px",
+                            fontStyle: "italic",
+                            fontSize: "1.2rem",
+                            lineHeight: 1.3,
+                            color: C.dark,
+                            textAlign: "right",
+                        }}
+                    >
+                        Hope to hear from you!
+                    </div>
+                </div>
+            ) : (
+                <div style={{ flex: 1.2, display: "flex", flexDirection: "column" }}>
+                    <div
+                        style={{
+                            flex: 1,
+                            minHeight: "200px",
+                            borderRadius: "12px",
+                            overflow: "hidden",
+                            background: C.cream,
+                            border: `1px solid ${C.border}`,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <img
+                            src={contactGif}
+                            alt="heh"
+                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            fontStyle: "italic",
+                            fontSize: "1.2rem",
+                            color: C.dark,
+                            textAlign: "center",
+                            marginTop: "10px",
+                        }}
+                    >
+                        Hope to hear from you!
+                    </div>
+                </div>
+            )}
+
+
+
+
+
         </div>
-    </div>
-        
-        
+
+
     )
 }
 

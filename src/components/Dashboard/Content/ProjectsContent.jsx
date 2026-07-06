@@ -6,6 +6,8 @@ import spikeResultsImg from "../../../assets/spikeResultsImg.jpg"
 import statTrackerImg from "../../../assets/statTrackerImg.jpg"
 import whiteboardImg from "../../../assets/whiteboardImg.jpg"
 
+import useIsMobile from "./useIsMobile"
+
 // ── Theme (matches AboutContent) ─────────────────────────────
 const C = {
     cream: "#f5f0e8",
@@ -16,19 +18,6 @@ const C = {
     amber: "#d6890f",
     border: "#e2d8c8",
     dark: "#393838",
-}
-
-// ── Hook: is the viewport mobile-width? ──────────────────────
-function useIsMobile(breakpoint = 768) {
-    const [isMobile, setIsMobile] = useState(
-        typeof window !== "undefined" ? window.innerWidth <= breakpoint : false
-    )
-    useEffect(() => {
-        const onResize = () => setIsMobile(window.innerWidth <= breakpoint)
-        window.addEventListener("resize", onResize)
-        return () => window.removeEventListener("resize", onResize)
-    }, [breakpoint])
-    return isMobile
 }
 
 // ── Project data ─────────────────────────────────────────────
