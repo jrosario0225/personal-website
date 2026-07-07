@@ -2,7 +2,7 @@ import AboutContent from "./Content/AboutContent"
 import ContactContent from "./Content/ContactContent"
 import ProjectsContent from "./Content/ProjectsContent"
 import useIsMobile from "./Content/useIsMobile"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 
 const contentMap = {
     "About": AboutContent,
@@ -10,14 +10,36 @@ const contentMap = {
     "Contact": ContactContent
 }
 
+const slideStyles = `
+@keyframes slideInRight {
+    from { transform: translateX(60px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInLeft {
+    from { transform: translateX(-60px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+`
+
 function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }) {
     const isFirst = currentIndex === 0
     const isLast = currentIndex === menuItems.length - 1
     const isMobile = useIsMobile()
     const touchStartX = useRef(null)
+    const [direction, setDirection] = useState("right")
 
     const prevLabel = currentIndex > 0 ? menuItems[currentIndex - 1] : null
     const nextLabel = currentIndex < menuItems.length - 1 ? menuItems[currentIndex + 1] : null
+
+    const handleNext = () => {
+        setDirection("right")
+        onNext()
+    }
+
+    const handlePrev = () => {
+        setDirection("left")
+        onPrev()
+    }
 
     const onTouchStart = (e) => {
         touchStartX.current = e.touches[0].clientX
@@ -48,6 +70,7 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                 zIndex: 100
             }}
         >
+            <style>{slideStyles}</style>
             <div
                 onClick={(e) => e.stopPropagation()}
                 onTouchStart={onTouchStart}
@@ -61,7 +84,7 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                 {/* Left arrow — desktop only */}
                 {!isFirst && !isMobile && (
                     <button
-                        onClick={(e) => { e.stopPropagation(); onPrev() }}
+                        onClick={(e) => { e.stopPropagation(); handlePrev() }}
                         style={{
                             position: "absolute",
                             left: "-60px",
@@ -109,11 +132,13 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                     )}
 
                     <div
+                        key={activeModal}
                         className="modal-scroll"
                         style={{
                             maxHeight: "80vh",
                             overflowY: "auto",
-                            padding: "2.5rem"
+                            padding: "2.5rem",
+                            animation: `${direction === "right" ? "slideInRight" : "slideInLeft"} 0.25s ease`
                         }}
                     >
                         <h2 style={{ margin: 0, color: "#3a2e22", fontWeight: 500 }}>
@@ -132,7 +157,7 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
                 {/* Right arrow — desktop only */}
                 {!isLast && !isMobile && (
                     <button
-                        onClick={(e) => { e.stopPropagation(); onNext() }}
+                        onClick={(e) => { e.stopPropagation(); handleNext() }}
                         style={{
                             position: "absolute",
                             right: "-60px",
