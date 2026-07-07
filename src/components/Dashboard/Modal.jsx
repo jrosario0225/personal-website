@@ -49,7 +49,7 @@ function Modal({ activeModal, currentIndex, menuItems, onClose, onNext, onPrev }
         if (touchStartX.current === null) return
         const diff = touchStartX.current - e.changedTouches[0].clientX
         if (diff > 50 && !isLast) handleNext()
-        if (diff < -50 && !isFirst) handlePrevPrev()
+        if (diff < -50 && !isFirst) handlePrev()
         touchStartX.current = null
     }
 
