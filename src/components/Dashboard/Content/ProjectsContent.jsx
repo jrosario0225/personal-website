@@ -39,7 +39,7 @@ const projects = [
             "A fully-responsive portfolio built from scratch with 3D rendering, animations, and a volleyball-themed interactive UI.",
         tags: ["JavaScript", "React", "Three.js"],
         status: "Ongoing",
-        liveUrl: null, // make sure to change domain name
+        liveUrl: null, // you're on it lol
         media: { type: "single", src: websiteImg, alt: "3D volleyball court portfolio" },
     },
     {
@@ -82,7 +82,7 @@ const projects = [
 ]
 
 // ── Media block ──────────────────────────────────────────────
-function Media({ media, isMobile }) {
+function Media({ media, isMobile }) { // pictures
     const base = {
         width: "100%",
         borderRadius: isMobile ? "18px" : "20px",
