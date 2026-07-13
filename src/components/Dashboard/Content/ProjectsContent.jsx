@@ -5,6 +5,7 @@ import spikeActionImg from "../../../assets/spikeActionImg.jpg"
 import spikeResultsImg from "../../../assets/spikeResultsImg.jpg"
 import statTrackerImg from "../../../assets/statTrackerImg.jpg"
 import whiteboardImg from "../../../assets/whiteboardImg.jpg"
+import repSpeedImg from "../../../assets/repSpeedImg.png"
 
 import useIsMobile from "./useIsMobile"
 
@@ -22,6 +23,16 @@ const C = {
 
 // ── Project data ─────────────────────────────────────────────
 const projects = [
+    {
+        title: "Rep Speed",
+        subtitle: "AirPods-based velocity tracker",
+        description: "An iOS app that uses AirPods gyroscope and accelerometer data to calculate the speed of your squats.",
+        tags: ["Swift", "SwiftUI"],
+        status: "Ongoing",
+        liveUrl: null,
+        media: { type: "single", src: repSpeedImg, alt: "Rep Speed"}
+    },
+
     {
         title: "Raincouver",
         subtitle: "Navigation app that routes users around rain",
