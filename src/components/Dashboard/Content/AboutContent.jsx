@@ -31,7 +31,7 @@ const icons = {
 
 const paragraphs = (
     <>
-        <p style={{ margin: 0 }}>
+        {/* <p style={{ margin: 0 }}>
             Nice to meet you, I'm Jacob and I like creating things that benefit others. I studied
             Biology at the University of British Columbia, where I discovered my love for the sport
             of volleyball and my interests in computer science.
@@ -59,7 +59,32 @@ const paragraphs = (
         <p style={{ margin: 0 }}>
             I'm only just starting out but I'm looking forward to seeing what else I can build that
             can help others.
+        </p> */}
+
+        <p>
+            Nice to meet you, I’m Jacob. 
+            I’m always looking for ways to build things that genuinely help the people around me.
         </p>
+
+        <p>
+            I studied Biology at the University of British Columbia but most of what shaped me happened outside the classroom. 
+            That’s where I found volleyball and more importantly, a community I wanted to contribute to. 
+            I started as a beginner – taught myself the game and eventually became a coach. 
+            Through that experience, I saw how clear feedback, tools and collaboration can make a real difference in someone’s growth.
+        </p>
+
+        <p>
+            That mindset carried into how I approach technology. 
+            I didn’t start programming just to learn how to code, I started because I saw problems in my community that I wanted to solve. 
+            As a coach, I needed better ways to track performance and give athletes actionable feedback. 
+            So I built them. A stat tracker to make decisions clearer in real time. A spike timing analyzer to turn guesswork into something measurable.
+        </p>
+
+        <p>
+           Now, I’m continuing to explore how software and AI can be used in the same way by solving practical problems and supporting communities I care about. 
+           Whether it’s athletes, local users, or everyday people navigating something as simple as the rain in Vancouver, I’m always looking for what I can build that would help. 
+        </p>
+        
     </>
 )
 
