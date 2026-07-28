@@ -69,7 +69,7 @@ function ContactContent() {
                     <div>
                         <div style={fieldLabel}>Resume</div>
                         <a
-                            href="/resume.pdf"
+                            href="/Jacob Rosario - Resume.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
                             style={resumeLink}
