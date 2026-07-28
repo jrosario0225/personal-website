@@ -29,7 +29,7 @@ const projects = [
         description: "An iOS app that uses AirPods gyroscope and accelerometer data to calculate the speed of your squats.",
         tags: ["Swift", "SwiftUI"],
         status: "Ongoing",
-        liveUrl: null,
+        liveUrl: null, // unavailable
         media: { type: "single", src: repSpeedImg, alt: "Rep Speed"}
     },
 
@@ -49,7 +49,8 @@ const projects = [
         description:
             "A fully-responsive portfolio built from scratch with 3D rendering, animations, and a volleyball-themed interactive UI.",
         tags: ["JavaScript", "React", "Three.js"],
-        status: "Ongoing",
+        date: "June 2026",
+        // status: "Ongoing",
         liveUrl: null, // you're on it lol
         media: { type: "single", src: websiteImg, alt: "3D volleyball court portfolio" },
     },
