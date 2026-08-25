@@ -1,6 +1,6 @@
 # Personal Website
 
-An interactive portfolio built around a 3D volleyball court. The whole page is a live Three.js scene — you can orbit the camera, and the ball on the floor is hittable: run your cursor into it and it pops up with spin and bounces until it settles.
+An interactive portfolio built around a 3D volleyball court. The whole page is a live Three.js scene — you can orbit the camera and the ball on the floor is hittable: run your cursor into it and it pops up with spin and bounces until it settles.
 
 **Live app:** [jacobrosario.com](https://jacobrosario.com/)
 
@@ -10,15 +10,14 @@ An interactive portfolio built around a 3D volleyball court. The whole page is a
 
 ## Why I built it
 
-Most portfolio sites are a list of links, and mine would have been too. But everything else I've built is volleyball — a stat tracker, a spike timer — and a static page felt like a strange front door for that.
+Most portfolio sites are a list of links and mine would have been too. But everything else I've built is volleyball — a stat tracker and a spike timer...  so why limit myself to a static page?
 
 So the site became the thing it's introducing:
 
 1. **Make the page a place, not a document** — a court rendered in 3D instead of a hero image of one.
 2. A scene you can only look at gets old fast → add **orbit controls** so the camera is yours.
 3. A ball sitting still on a court is a screenshot → give it **gravity and a hit response**, so the first thing anyone does is knock it around.
-4. Three.js scenes turn into one thousand-line file quickly → split every object into its **own builder**, so adding a scoreboard doesn't mean touching the net.
-5. The content still has to be readable → layer a **modal dashboard** over the scene rather than navigating away from it.
+4. The content still has to be readable → layer a **modal dashboard** over the scene rather than navigating away from it.
 
 ---
 
@@ -145,4 +144,3 @@ Then open the URL Vite prints (usually `http://localhost:5173`).
 - **The ball can't be hit on mobile** — hit detection listens for `mousemove` only, so on touch devices the ball drops, settles, and stays there. A `touchmove` handler feeding the same coordinates would fix it.
 - **Physics is frame-rate dependent** — velocity is advanced by a fixed amount per frame with no delta time, so the ball falls noticeably faster on a 120Hz display than a 60Hz one. Scaling each step by elapsed time is the fix.
 - **Hit detection ignores depth** — because the check is screen-space distance, the cursor connects with the ball whenever it passes over it visually, regardless of how far away it is in the scene.
-- **Asset sizes** — `logo.png` is 1.3 MB for a favicon and `contactGif.gif` is 1.9 MB, which is most of the initial download on a slow connection.
