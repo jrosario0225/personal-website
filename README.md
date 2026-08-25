@@ -2,7 +2,7 @@
 
 An interactive portfolio built around a 3D volleyball court. The whole page is a live Three.js scene — you can orbit the camera, and the ball on the floor is hittable: run your cursor into it and it pops up with spin and bounces until it settles.
 
-**Live app:** jacobrosario.com
+**Live app:** [jacobrosario.com](https://jacobrosario.com/)
 
 ![The court](docs/website.jpeg)
 
