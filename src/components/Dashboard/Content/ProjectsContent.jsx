@@ -24,13 +24,13 @@ const C = {
 // ── Project data ─────────────────────────────────────────────
 const projects = [
     {
-        title: "Rep Speed",
+        title: "RepPower",
         subtitle: "AirPods-based velocity tracker",
         description: "An iOS app that uses AirPods gyroscope and accelerometer data to calculate the speed of your squats.",
         tags: ["Swift", "SwiftUI"],
         status: "Ongoing",
         liveUrl: null, // unavailable
-        media: { type: "single", src: repSpeedImg, alt: "Rep Speed"}
+        media: { type: "single", src: repSpeedImg, alt: "RepPower"}
     },
 
     {
