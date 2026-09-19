@@ -15,11 +15,8 @@ import createScoreboard from "./createScoreboard";
 // importing Physics
 import createPhysics from "../createPhysics"
 
-// importing Mouse
-import createMouseTracking from "../createMouseTracking";
-
-// importing Hit Detection
-import createHitDetection from "../createHitDetection";
+// importing pointer controls
+import createPointerControls from "./createPointerControls";
 
 
 function Scene() {
@@ -84,11 +81,14 @@ function Scene() {
         // Gravity 
         const { velocity, angularVelocity, update } = createPhysics(ball)
 
-        // Mouse Tracking
-        const { mouse, onMouseMove } = createMouseTracking(mount)
-
-        // Hit Detection
-        const { checkHit } = createHitDetection(ball, mouse, camera, velocity, angularVelocity)
+        const removePointerControls = createPointerControls({
+            mount,
+            ball,
+            camera,
+            velocity,
+            angularVelocity,
+            controls
+        })
 
         // Handle window resize
         const onWindowResize = () => {
@@ -104,19 +104,27 @@ function Scene() {
 
         const animate = () => {
             animationId = requestAnimationFrame(animate)
+
             controls.update()
             update() // updates the ball's position
             updateDust()
-            if (checkHit()) { }
+
             renderer.render(scene, camera)
         }
         animate()
 
         return () => {
             cancelAnimationFrame(animationId)
-            mount.removeChild(renderer.domElement)
-            mount.removeEventListener("mousemove", onMouseMove)
+
+            window.removeEventListener("resize", onWindowResize)
+
+            removePointerControls()
+            controls.dispose()
             renderer.dispose()
+            
+            if (renderer.domElement.parentNode === mount) {
+                mount.removeChild(renderer.domElement)
+            }
         }
 
 
@@ -127,6 +135,7 @@ function Scene() {
             style={{
                 width: "100vw",
                 height: "100vh",
+                touchAction: "none",
                 background: "radial-gradient(circle at center, #fffff0 0%, #c4a882 45%)"
             }} />
     )
