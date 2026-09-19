@@ -57,10 +57,8 @@ function Scene() {
             mount.clientHeight)
         mount.appendChild(renderer.domElement)
 
-        renderer.shadowMap.enabled = !isMobile
-        if (!isMobile) {
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap
-        }
+        renderer.shadowMap.enabled = true
+        renderer.shadowMap.type = isMobile ? THREE.BasicShadowMap : THREE.PCFSoftShadowMap
 
         renderer.setClearColor(0x000000, 0) // transparent bg
         renderer.setClearAlpha(0)
@@ -73,7 +71,7 @@ function Scene() {
         const ball = createVolleyball(scene)
 
         // (2) Lighting
-        const { ambientLight, directionalLight } = createLighting(scene)
+        const { ambientLight, directionalLight } = createLighting(scene, isMobile)
 
         // (3) Net
         const netGroup = createNet(scene)

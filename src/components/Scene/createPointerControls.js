@@ -6,10 +6,16 @@ function createPointerControls({
     camera,
     velocity,
     angularVelocity,
-    controls
 }) {
-    const hitRadius = 48
-    const touchStartRadius = 140
+    
+    // making hitbox bigger on mobile
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches
+    const hitRadius = isTouchDevice ? 65 : 48
+    
+    // tracking active touch pointers
+    const touchPointers = new Set()
+
+
 
     let previousMouse = null
     let mouseInsideBall = false
@@ -86,11 +92,6 @@ function createPointerControls({
                 ? Math.max(verticalImpulse, 0.085)
                 : verticalImpulse
 
-        if (verticalImpulse > 0) {
-            velocity.y = Math.max(verticalImpulse, 0.075)
-        } else {
-            velocity.y = verticalImpulse
-        }
 
         angularVelocity.z = -velocity.x * 0.5
         angularVelocity.x = velocity.y * 0.5
@@ -126,34 +127,28 @@ function createPointerControls({
     }
 
     const handlePointerDown = (event) => {
-        if (!event.isPrimary || event.pointerType === "mouse") return
+        if (event.pointerType === "mouse") return
+
+        touchPointers.add(event.pointerId)
+
+        if (touchPointers.size > 1) {
+            activeTouch = null
+            return
+        }
 
         const current = {
             x: event.clientX,
             y: event.clientY
         }
 
-        const ballPosition = getBallScreenPosition()
-
-        // Touches away from the ball remain available to OrbitControls.
-        if (
-            distanceBetween(current, ballPosition) >
-            touchStartRadius
-        ) {
-            return
-        }
-
         event.preventDefault()
-        event.stopPropagation()
 
-        controls.enabled = false
         mount.setPointerCapture(event.pointerId)
 
         activeTouch = {
             pointerId: event.pointerId,
             previous: current,
-            insideBall:
-                distanceBetween(current, ballPosition) <= hitRadius
+            hasHit: false
         }
     }
 
@@ -166,7 +161,6 @@ function createPointerControls({
         }
 
         event.preventDefault()
-        event.stopPropagation()
 
         const current = {
             x: event.clientX,
@@ -174,38 +168,32 @@ function createPointerControls({
         }
 
         const ballPosition = getBallScreenPosition()
-        const currentlyInside =
-            distanceBetween(current, ballPosition) <= hitRadius
-
+    
         const hit = segmentHitsBall(
             activeTouch.previous,
             current,
             ballPosition
         )
 
-        if (hit && !activeTouch.insideBall) {
+        if (hit && !activeTouch.hasHit) {
             applyImpulse(activeTouch.previous, current)
+            activeTouch.hasHit = true
         }
 
         activeTouch.previous = current
-        activeTouch.insideBall = currentlyInside
     }
 
     const endTouch = (event) => {
-        if (
-            !activeTouch ||
-            event.pointerId !== activeTouch.pointerId
-        ) {
-            return
-        }
+        touchPointers.delete(event.pointerId)
 
-        controls.enabled = true
 
         if (mount.hasPointerCapture(event.pointerId)) {
             mount.releasePointerCapture(event.pointerId)
         }
 
-        activeTouch = null
+        if (activeTouch?.pointerId === event.pointerId) {
+            activeTouch = null
+        }
     }
 
     const handlePointerMove = (event) => {

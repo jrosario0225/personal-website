@@ -1,7 +1,7 @@
 
 import * as THREE from "three"
 
-function createLighting(scene) {
+function createLighting(scene, isMobile) {
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)
     scene.add(ambientLight)
@@ -10,10 +10,12 @@ function createLighting(scene) {
     directionalLight.position.set(-8, 2, -4)
     
     directionalLight.castShadow = true
+
+    const shadowSize = isMobile ? 512 : 2048
     
     // Shadow quality settings
-    directionalLight.shadow.mapSize.width = 2048
-    directionalLight.shadow.mapSize.height = 2048
+    directionalLight.shadow.mapSize.width = shadowSize
+    directionalLight.shadow.mapSize.height = shadowSize
     directionalLight.shadow.camera.near = 0.5
     directionalLight.shadow.camera.far = 50
     directionalLight.shadow.camera.left = -10
