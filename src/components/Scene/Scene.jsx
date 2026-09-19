@@ -22,6 +22,8 @@ import createPointerControls from "./createPointerControls";
 function Scene() {
     const mountRef = useRef(null)
 
+    const isMobile = window.matchMedia("(pointer:coarse)").matches
+
     useEffect(() => {
         const mount = mountRef.current
 
@@ -43,12 +45,22 @@ function Scene() {
 
 
         // Renderer
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-        renderer.setSize(mount.clientWidth, mount.clientHeight)
+        const renderer = new THREE.WebGLRenderer({
+            antialias: !isMobile, 
+            alpha: true,
+            powerPreference: "high-performance"
+        })
+
+        renderer.setPixelRatio(1)
+        renderer.setSize(
+            mount.clientWidth, 
+            mount.clientHeight)
         mount.appendChild(renderer.domElement)
 
-        renderer.shadowMap.enabled = true
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap
+        renderer.shadowMap.enabled = !isMobile
+        if (!isMobile) {
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap
+        }
 
         renderer.setClearColor(0x000000, 0) // transparent bg
         renderer.setClearAlpha(0)
@@ -78,7 +90,7 @@ function Scene() {
         // (7) Scoreboard
         const scoreboard = createScoreboard(scene)
 
-        const { update: updateDust } = createDust(scene)
+        const dustController = isMobile ? null : createDust(scene)
 
         // Gravity 
         const { velocity, angularVelocity, update } = createPhysics(ball)
@@ -111,7 +123,7 @@ function Scene() {
 
             controls.update()
             update(deltaTime) // updates the ball's position
-            updateDust()
+            dustController?.update()
 
             renderer.render(scene, camera)
         }
@@ -125,7 +137,7 @@ function Scene() {
             removePointerControls()
             controls.dispose()
             renderer.dispose()
-            
+
             if (renderer.domElement.parentNode === mount) {
                 mount.removeChild(renderer.domElement)
             }

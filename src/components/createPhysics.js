@@ -3,7 +3,7 @@ function createPhysics(ball) {
     const velocity = ({ x: 0, y: 0, z: 0 })
     const angularVelocity = { x: 0, z: 0 }
 
-    const gravity = -0.0035
+    const gravity = -0.004
 
     const ballRadius = 0.38
 
