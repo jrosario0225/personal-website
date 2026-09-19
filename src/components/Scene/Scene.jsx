@@ -25,6 +25,8 @@ function Scene() {
     useEffect(() => {
         const mount = mountRef.current
 
+        const clock = new THREE.Clock()
+
         // Scene
         const scene = new THREE.Scene()
 
@@ -105,8 +107,10 @@ function Scene() {
         const animate = () => {
             animationId = requestAnimationFrame(animate)
 
+            const deltaTime = Math.min(clock.getDelta(), 1 / 30)
+
             controls.update()
-            update() // updates the ball's position
+            update(deltaTime) // updates the ball's position
             updateDust()
 
             renderer.render(scene, camera)

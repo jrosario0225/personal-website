@@ -73,14 +73,23 @@ function createPointerControls({
         )
 
         velocity.x = directionX * force
-        velocity.y = directionY * force
 
-        const verticalImpulse = directionY * force
 
-        if (verticalImpuse > 0) {
+        const verticalImpulse = THREE.MathUtils.clamp(
+            directionY * force,
+            -0.12,
+            0.13
+        )
+
+        velocity.y =
+            verticalImpulse > 0
+                ? Math.max(verticalImpulse, 0.085)
+                : verticalImpulse
+
+        if (verticalImpulse > 0) {
             velocity.y = Math.max(verticalImpulse, 0.075)
         } else {
-            velocity,y = verticalImpulse
+            velocity.y = verticalImpulse
         }
 
         angularVelocity.z = -velocity.x * 0.5
