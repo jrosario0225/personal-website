@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react"
-import raincouverImg from "../../../assets/raincouverImg.png"
+
+import repPowerImages from "../../../assets/RepPower-Images/index"
+import statTrackerImages from "../../../assets/Stat-Tracker-Images"
+import spikeTimerImages from "../../../assets/Spike-Timer-Images"
 import websiteImg from "../../../assets/websiteImg.png"
-import spikeActionImg from "../../../assets/spikeActionImg.jpg"
-import spikeResultsImg from "../../../assets/spikeResultsImg.jpg"
-import statTrackerImg from "../../../assets/statTrackerImg.jpg"
-import whiteboardImg from "../../../assets/whiteboardImg.jpg"
-import repSpeedImg from "../../../assets/repSpeedImg.png"
 
 import useIsMobile from "./useIsMobile"
 
@@ -28,20 +26,49 @@ const projects = [
         subtitle: "AirPods-based velocity tracker",
         description: "An iOS app that uses AirPods gyroscope and accelerometer data to calculate the speed of your squats.",
         tags: ["Swift", "SwiftUI"],
-        status: "Ongoing",
-        liveUrl: null, // unavailable
-        media: { type: "single", src: repSpeedImg, alt: "RepPower"}
+        date: "Sept 2026",
+        liveUrl: "https://github.com/jrosario0225/RepPower",
+        images: repPowerImages,
+        orientation: "portrait"
     },
 
     {
-        title: "Raincouver",
-        subtitle: "Navigation app that routes users around rain",
+        title: "Volleyball Stat Tracker",
+        subtitle: "Real-time in-game stats",
         description:
-            "A web app that routes you around the rain using GPS, a street-exposure scoring system, and a pathfinding algorithm that prioritizes shelter over speed.",
+            "A real-time stat logging tool built for live matches, with optimized inputs designed for speed and in-game decision-making. Whiteboard included to visualize strategy.",
+        tags: ["React"],
+        date: "Feb 2026",
+        liveUrl: "https://github.com/jrosario0225/volleyball-stat-tracker",
+        images: statTrackerImages,
+        orientation: "landscape"
+    },
+
+    // {
+    //     title: "Raincouver",
+    //     subtitle: "Navigation app that routes users around rain",
+    //     description:
+    //         "A web app that routes you around the rain using GPS, a street-exposure scoring system, and a pathfinding algorithm that prioritizes shelter over speed.",
+    //     tags: ["JavaScript", "React"],
+    //     status: "Ongoing",
+    //     liveUrl: null, // not deployed rn
+    //     media: { type: "single", src: raincouverImg, alt: "Raincouver map UI" },
+    // },
+    {
+        title: "Spike Timer Analyzer",
+        subtitle: "Helping athletes time their spikes efficiently",
+        description:
+            "A computer vision tool that analyzes spike timing from a video, extracting takeoff, contact, and landing data.",
         tags: ["JavaScript", "React"],
-        status: "Ongoing",
-        liveUrl: null, // not deployed rn
-        media: { type: "single", src: raincouverImg, alt: "Raincouver map UI" },
+        date: "March 2026",
+        liveUrl: "https://spike-timer.vercel.app/",
+        images: spikeTimerImages,
+        testimonials: [
+            { quote: "Tried this and its legit!!!!", author: "@mambobita, Instagram" },
+            // Add more testimonials here:
+            // { quote: "...", author: "Name, Role" },
+        ],
+        orientation: "portrait"
     },
     {
         title: "Personal Website",
@@ -52,110 +79,162 @@ const projects = [
         date: "June 2026",
         // status: "Ongoing",
         liveUrl: null, // you're on it lol
-        media: { type: "single", src: websiteImg, alt: "3D volleyball court portfolio" },
-    },
-    {
-        title: "Spike Timer Analyzer",
-        subtitle: "Helping athletes time their spikes efficiently",
-        description:
-            "A computer vision tool that analyzes spike timing from a video, extracting takeoff, contact, and landing data.",
-        tags: ["JavaScript", "React"],
-        date: "March 2026",
-        liveUrl: "https://spike-timer.vercel.app/",
-        media: {
-            type: "dual",
-            images: [
-                { src: spikeActionImg, alt: "Spike timing action frame" },
-                { src: spikeResultsImg, alt: "Spike timing accuracy results" },
-            ],
-        },
-        testimonials: [
-            { quote: "Tried this and its legit!!!!", author: "@mambobita, Instagram" },
-            // Add more testimonials here:
-            // { quote: "...", author: "Name, Role" },
+        images: [
+            {
+                src: websiteImg,
+                alt: "Website image"
+            }
         ],
-    },
-    {
-        title: "Volleyball Stat Tracker",
-        subtitle: "Real-time in-game stats",
-        description:
-            "A real-time stat logging tool built for live matches, with optimized inputs designed for speed and in-game decision-making. Whiteboard included to visualize strategy.",
-        tags: ["React"],
-        date: "Feb 2026",
-        liveUrl: "https://website-phi-one-74.vercel.app/",
-        media: {
-            type: "dual",
-            images: [
-                { src: statTrackerImg, alt: "Volleyball stat tracker dashboard" },
-                { src: whiteboardImg, alt: "Volleyball whiteboard" },
-            ],
-        },
-    },
+        orientation: "landscape"
+    }
 ]
 
-// ── Media block ──────────────────────────────────────────────
-function Media({ media, isMobile }) { // pictures
-    const base = {
-        width: "100%",
-        borderRadius: isMobile ? "18px" : "20px",
-        overflow: "hidden",
-        border: `1px solid ${C.border}`,
-        aspectRatio: isMobile ? "16 / 10" : "4 / 3",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-    }
+const imageStyle = {
+    display: "block",
+    maxWidth: "100%",
+    maxHeight: "100%",
+    width: "auto",
+    height: "auto",
+    objectFit: "contain",
+}
 
-    if (media.type === "dual") {
-        // On mobile: stack the two images vertically (full width each).
-        // On desktop: side-by-side halves.
-        return (
-            <div
-                style={{
-                    ...base,
-                    backgroundColor: C.dark,
-                    padding: "0.75rem",
-                    gap: isMobile ? "0.6rem" : "0.75rem",
-                    flexDirection: isMobile ? "column" : "row",
-                    aspectRatio: isMobile ? "auto" : base.aspectRatio,
-                }}
-            >
-                {media.images.map((img) => (
-                    <img
-                        key={img.alt}
-                        src={img.src}
-                        alt={img.alt}
-                        style={{
-                            width: isMobile ? "100%" : "50%",
-                            height: isMobile ? "auto" : "100%",
-                            maxHeight: isMobile ? "260px" : "none",
-                            objectFit: "contain",
-                            borderRadius: "10px",
-                            display: "block",
-                        }}
-                    />
-                ))}
-            </div>
+const hitboxStyle = {
+    position: "absolute",
+    top: 0,
+    width: "30%",
+    height: "100%",
+    padding: 0,
+    border: "none",
+    background: "transparent",
+    cursor: "pointer",
+    zIndex: 1,
+}
+
+const dotsStyle = {
+    position: "absolute",
+    left: "50%",
+    bottom: "10px",
+    transform: "translateX(-50%)",
+    display: "flex",
+    gap: "7px",
+    zIndex: 2,
+    pointerEvents: "none",
+}
+
+const dotStyle = {
+    width: "5px",
+    height: "5px",
+    borderRadius: "50%",
+    backgroundColor: "white",
+    boxShadow: "0 1px 4px rgba(0, 0, 0, 0.5)",
+}
+
+const carouselSlideStyles = `
+@keyframes carouselSlideInRight {
+    from { transform: translateX(60px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes carouselSlideInLeft {
+    from { transform: translateX(-60px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+`
+
+function Carousel({ images, orientation, isMobile }) {
+    const [current, setCurrent] = useState(0)
+    const [direction, setDirection] = useState("right")
+
+
+    if (!images?.length) return null
+
+    const previous = () => {
+        setDirection("left")
+        setCurrent((index) =>
+            (index - 1 + images.length) % images.length
         )
     }
 
-    // "fit" = show whole image (no crop); "single" = fill/crop
-    const isFit = media.type === "fit"
+    const next = () => {
+        setDirection("right")
+        setCurrent((index) =>
+            (index + 1) % images.length
+        )
+    }
+
     return (
-        <div style={{ ...base, backgroundColor: isFit ? C.dark : "#2b2f3a" }}>
+        <div
+            style={{
+                position: "relative",
+                width: "100%",
+                height: orientation === "portrait"
+                    ? isMobile
+                        ? "420px"
+                        : "540px"
+                    : "auto",
+                aspectRatio: orientation === "landscape"
+                    ? "16/10"
+                    : "auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                borderRadius: isMobile ? "18px" : "20px",
+                border: `1px solid ${C.border}`,
+                backgroundColor: C.dark,
+            }}
+        >
+            <style>{carouselSlideStyles}</style>
+
             <img
-                src={media.src}
-                alt={media.alt}
+                key={current}
+                src={images[current].src}
+                alt={images[current].alt}
                 style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: isFit ? "contain" : "cover",
-                    display: "block",
+                    ...imageStyle,
+                    animation: `${
+                        direction === "right" ? "carouselSlideInRight" : "carouselSlideInLeft" 
+                    } 0.25s ease`,
+                    width: orientation === "landscape" ? "100%" : "auto",
+                    height: orientation === "landscape" ? "100%" : "auto",
+                    objectFit: "contain"
                 }}
             />
+
+            {images.length > 1 && (
+                <>
+                    <button
+                        type="button"
+                        onClick={previous}
+                        aria-label="Previous image"
+                        style={{ ...hitboxStyle, left: 0 }}
+                    />
+
+                    <button
+                        type="button"
+                        onClick={next}
+                        aria-label="Next image"
+                        style={{ ...hitboxStyle, right: 0 }}
+                    />
+
+                    <div style={dotsStyle}>
+                        {images.map((image, index) => (
+                            <span
+                                key={image.src}
+                                style={{
+                                    ...dotStyle,
+                                    opacity: current === index ? 1 : 0.45,
+                                }}
+                            />
+                        ))}
+                    </div>
+                </>
+            )}
         </div>
     )
 }
+
+
 
 // ── Shared meta pieces ───────────────────────────────────────
 function StatusOrDate({ project }) {
@@ -211,7 +290,7 @@ function LiveLink({ url }) {
     if (!url) return null
     return (
         <a href={url} target="_blank" rel="noopener noreferrer" style={linkStyle}>
-            Live site ↗
+            More details ↗
         </a>
     )
 }
@@ -278,7 +357,7 @@ function MobileProject({ project, isLast }) {
                 </div>
             </div>
 
-            <Media media={project.media} isMobile />
+            <Carousel images={project.images} orientation={project.orientation} isMobile />
 
             <p style={{ fontSize: "14px", lineHeight: 1.65, color: C.brown, margin: 0 }}>
                 {project.description}
@@ -320,7 +399,7 @@ function DesktopProject({ project, reverse }) {
         </div>
     )
 
-    const mediaEl = <Media media={project.media} isMobile={false} />
+    const mediaEl = <Carousel images={project.images} orientation={project.orientation} isMobile={false} />
 
     return (
         <div
