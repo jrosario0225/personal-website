@@ -6,10 +6,10 @@ import useIsMobile from "./Content/useIsMobile"
 
 
 function Dashboard({ onMenuClick }) {
-    const { activeModal, currentIndex, openModal, closeModal, goNext, goPrev, menuItems} = useModalState()
+    const { activeModal, currentIndex, openModal, closeModal, goNext, goPrev, menuItems } = useModalState()
 
     const isMobile = useIsMobile()
-   
+
     return (
         <>
             <div style={{
@@ -57,13 +57,13 @@ function Dashboard({ onMenuClick }) {
 
             {/* Modal */}
             {activeModal && (
-                <Modal 
-                activeModal={activeModal}
-                currentIndex={currentIndex}
-                menuItems={menuItems}
-                onClose={closeModal}
-                onNext={goNext}
-                onPrev={goPrev}
+                <Modal
+                    activeModal={activeModal}
+                    currentIndex={currentIndex}
+                    menuItems={menuItems}
+                    onClose={closeModal}
+                    onNext={goNext}
+                    onPrev={goPrev}
                 />
             )}
 

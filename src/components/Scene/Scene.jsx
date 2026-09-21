@@ -39,21 +39,22 @@ function Scene() {
             0.1,
             1000
         )
-        // camera.position.set(6, 3, 7)
-        camera.position.set(3.5, 0, 3.5)
 
+        // different landing page camera view depending on mobile or desktop
+        const d = mount.clientWidth < mount.clientHeight ? 8 : 3.5
+        camera.position.set(d, 0, d)
 
 
         // Renderer
         const renderer = new THREE.WebGLRenderer({
-            antialias: !isMobile, 
+            antialias: !isMobile,
             alpha: true,
             powerPreference: "high-performance"
         })
 
         renderer.setPixelRatio(1)
         renderer.setSize(
-            mount.clientWidth, 
+            mount.clientWidth,
             mount.clientHeight)
         mount.appendChild(renderer.domElement)
 
