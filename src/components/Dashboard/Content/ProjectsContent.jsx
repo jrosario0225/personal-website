@@ -4,6 +4,7 @@ import repPowerImages from "../../../assets/RepPower-Images/index"
 import statTrackerImages from "../../../assets/Stat-Tracker-Images"
 import spikeTimerImages from "../../../assets/Spike-Timer-Images"
 import websiteImg from "../../../assets/websiteImg.png"
+import raincouverImg from "../../../assets/raincouverImg.png"
 
 import useIsMobile from "./useIsMobile"
 
@@ -21,6 +22,16 @@ const C = {
 
 // ── Project data ─────────────────────────────────────────────
 const projects = [
+
+       {
+        title: "RainCouver",
+        subtitle: "Navigation app that routes users around rain",
+        description: "A GPS that finds you the driest route through Downtown Vancouver, using LiDAR data to map covered walkways street by street.",
+        tags: [],
+        status: "Ongoing",
+        liveUrl: null, // not deployed rn
+        images: [{ type: "single", src: raincouverImg, alt: "Raincouver map UI" }]
+    },
     {
         title: "RepPower",
         subtitle: "AirPods-based velocity tracker",
@@ -44,16 +55,6 @@ const projects = [
         orientation: "landscape"
     },
 
-    // {
-    //     title: "Raincouver",
-    //     subtitle: "Navigation app that routes users around rain",
-    //     description:
-    //         "A web app that routes you around the rain using GPS, a street-exposure scoring system, and a pathfinding algorithm that prioritizes shelter over speed.",
-    //     tags: ["JavaScript", "React"],
-    //     status: "Ongoing",
-    //     liveUrl: null, // not deployed rn
-    //     media: { type: "single", src: raincouverImg, alt: "Raincouver map UI" },
-    // },
     {
         title: "Spike Timer Analyzer",
         subtitle: "Helping athletes time their spikes efficiently",
