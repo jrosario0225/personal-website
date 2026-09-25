@@ -56,7 +56,7 @@ const projects = [
     },
 
     {
-        title: "Spike Timer Analyzer",
+        title: "Spike Timer",
         subtitle: "Helping athletes time their spikes efficiently",
         description:
             "A computer vision tool that analyzes spike timing from a video, extracting takeoff, contact, and landing data.",
