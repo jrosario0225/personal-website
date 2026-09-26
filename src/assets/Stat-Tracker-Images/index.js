@@ -1,15 +1,15 @@
-import image1 from "./Stat-Tracker-1.jpg"
-import image2 from "./Stat-Tracker-2.jpg"
-import image3 from "./Stat-Tracker-3.jpg"
-import image4 from "./Stat-Tracker-4.jpg"
-import image5 from "./Stat-Tracker-5.jpg"
-
-
+import statsOverview from "./Stats-Overview.png"
+import specificStats from "./Specific-Stats.png"
+import earnedPointPicker from "./Earned-Point-Picker.png"
+import errorPicker from "./Error-Picker.png"
+import whiteboard from "./Whiteboard.png"
+import gameSummary from "./Game-Summary.png"
 
 export default [
-    { src: image1, alt: "Live stats" },
-    { src: image2, alt: "Points Earned" },
-    { src: image3, alt: "Errors" },
-    { src: image4, alt: "Whiteboard" },
-    { src: image5, alt: "Results" },
+    { src: statsOverview, alt: "Live match overview with team totals and charts" },
+    { src: specificStats, alt: "Expanded specific action counts for both teams" },
+    { src: earnedPointPicker, alt: "Earned-point action picker" },
+    { src: errorPicker, alt: "Error action picker" },
+    { src: whiteboard, alt: "Volleyball whiteboard with a drawn play" },
+    { src: gameSummary, alt: "Match summary with set results and team breakdowns" },
 ]
