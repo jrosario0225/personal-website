@@ -27,7 +27,7 @@ const projects = [
         title: "RainCouver",
         subtitle: "Navigation app that routes users around rain",
         description: "A GPS that finds you the driest route through Downtown Vancouver, using LiDAR data to map covered walkways street by street.",
-        tags: [],
+        tags: ["React", "TypeScript", "LiDAR/OSM data"],
         status: "Ongoing",
         liveUrl: null, // not deployed rn
         images: [{ type: "single", src: raincouverImg, alt: "Raincouver map UI" }]
@@ -49,7 +49,7 @@ const projects = [
         description:
             "A real-time stat logging tool built for live matches, with optimized inputs designed for speed and in-game decision-making. Whiteboard included to visualize strategy.",
         tags: ["React"],
-        date: "Feb 2026",
+        date: "Feb 2026 | Update: UI - Sept 2026",
         liveUrl: "https://github.com/jrosario0225/volleyball-stat-tracker",
         images: statTrackerImages,
         orientation: "landscape"
@@ -61,7 +61,7 @@ const projects = [
         description:
             "A computer vision tool that analyzes spike timing from a video, extracting takeoff, contact, and landing data.",
         tags: ["JavaScript", "React"],
-        date: "March 2026",
+        date: "March 2026 | Update: UI - Sept 2026",
         liveUrl: "https://spike-timer.vercel.app/",
         images: spikeTimerImages,
         testimonials: [
