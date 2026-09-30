@@ -29,7 +29,7 @@ const projects = [
         description: "A GPS that finds you the driest route through Downtown Vancouver, using LiDAR data to map covered walkways street by street.",
         tags: ["React", "TypeScript", "LiDAR/OSM data"],
         status: "Ongoing",
-        liveUrl: null, // not deployed rn
+        liveUrl: "https://github.com/jrosario0225/RainCouver",
         images: [{ type: "single", src: raincouverImg, alt: "Raincouver map UI" }]
     },
     {
