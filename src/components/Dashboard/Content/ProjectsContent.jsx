@@ -4,7 +4,7 @@ import repPowerImages from "../../../assets/RepPower-Images/index"
 import statTrackerImages from "../../../assets/Stat-Tracker-Images"
 import spikeTimerImages from "../../../assets/Spike-Timer-Images"
 import websiteImg from "../../../assets/websiteImg.png"
-import raincouverImg from "../../../assets/raincouverImg.png"
+import RainCouverImages from "../../../assets/RainCouver-Images"
 
 import useIsMobile from "./useIsMobile"
 
@@ -30,7 +30,7 @@ const projects = [
         tags: ["React", "TypeScript", "LiDAR/OSM data"],
         status: "Ongoing",
         liveUrl: "https://github.com/jrosario0225/RainCouver",
-        images: [{ type: "single", src: raincouverImg, alt: "Raincouver map UI" }]
+        images: RainCouverImages
     },
     {
         title: "RepPower",
