@@ -142,7 +142,7 @@ const carouselSlideStyles = `
 }
 `
 
-function Carousel({ images, orientation, isMobile }) {
+function Carousel({ images, orientation, isMobile, imageScale = 1 }) {
     const [current, setCurrent] = useState(0)
     const [direction, setDirection] = useState("right")
 
@@ -167,7 +167,8 @@ function Carousel({ images, orientation, isMobile }) {
         <div
             style={{
                 position: "relative",
-                width: "100%",
+                width: `${imageScale * 100}%`,
+                margin: !isMobile && orientation === "landscape" ? "0 auto" : undefined,
                 height: orientation === "portrait"
                     ? isMobile
                         ? "420px"
@@ -370,7 +371,9 @@ function MobileProject({ project, isLast }) {
 }
 
 // ── DESKTOP layout: alternating two-column grid ──────────────
-function DesktopProject({ project, reverse }) {
+function DesktopProject({ project }) {
+    const isLandscape = project.orientation === "landscape"
+
     const meta = (
         <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "1rem" }}>
@@ -400,7 +403,53 @@ function DesktopProject({ project, reverse }) {
         </div>
     )
 
-    const mediaEl = <Carousel images={project.images} orientation={project.orientation} isMobile={false} />
+    const mediaEl = (
+        <Carousel
+            images={project.images}
+            orientation={project.orientation}
+            isMobile={false}
+            imageScale={isLandscape ? 0.9 : 1}
+        />
+    )
+
+    if (isLandscape) {
+        return (
+            <section
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1.25rem",
+                    padding: "3rem 0",
+                    borderBottom: `1px dashed ${C.amber}`,
+                }}
+            >
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
+                    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "1rem" }}>
+                        <h3 style={{ fontSize: "22px", fontWeight: 600, margin: 0, lineHeight: 1.25, color: C.brown }}>
+                            {project.title}
+                        </h3>
+                        <StatusOrDate project={project} />
+                    </div>
+
+                    <p style={{ fontSize: "13px", color: C.tan, fontStyle: "italic", margin: "-0.35rem 0 0" }}>
+                        {project.subtitle}
+                    </p>
+                </div>
+
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+                    <Tags tags={project.tags} />
+                    <LiveLink url={project.liveUrl} />
+                </div>
+
+                {mediaEl}
+
+                <p style={{ fontSize: "14px", lineHeight: 1.65, color: C.brown, margin: 0 }}>
+                    {project.description}
+                </p>
+                <Testimonials testimonials={project.testimonials} />
+            </section>
+        )
+    }
 
     return (
         <div
@@ -413,17 +462,8 @@ function DesktopProject({ project, reverse }) {
                 alignItems: "center",
             }}
         >
-            {reverse ? (
-                <>
-                    {meta}
-                    {mediaEl}
-                </>
-            ) : (
-                <>
-                    {mediaEl}
-                    {meta}
-                </>
-            )}
+            {meta}
+            {mediaEl}
         </div>
     )
 }
@@ -455,7 +495,7 @@ export default function ProjectsContent() {
                         <DesktopProject
                             key={project.title}
                             project={project}
-                            reverse={i % 2 === 1}
+                            // reverse={i % 2 === 1}
                         />
                     )
                 )}
