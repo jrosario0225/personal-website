@@ -61,30 +61,41 @@ const paragraphs = (
             can help others.
         </p> */}
 
-        <p>
-            Nice to meet you, I’m Jacob. 
-            I’m always looking for ways to build things that genuinely help the people around me.
+        {/* <p>
+            Nice to meet you, I’m Jacob. I’m a software engineer based in Vancouver, building web applications, mobile tools, and wearable technology.
         </p>
 
         <p>
-            I studied Biology at the University of British Columbia but most of what shaped me happened outside the classroom. 
-            That’s where I found volleyball and more importantly, a community I wanted to contribute to. 
-            I started as a beginner – taught myself the game and eventually became a coach. 
-            Through that experience, I saw how clear feedback, tools and collaboration can make a real difference in someone’s growth.
+            I studied Biology at UBC and taught myself volleyball before becoming a competitive player and coach.
+            Coaching gave me problems worth solving—and a reason to start programming.
+            I built a React stat tracker used across 20+ competitive matches and a video-analysis tool for measuring spike timing.
         </p>
 
         <p>
-            That mindset carried into how I approach technology. 
-            I didn’t start programming just to learn how to code, I started because I saw problems in my community that I wanted to solve. 
-            As a coach, I needed better ways to track performance and give athletes actionable feedback. 
-            So I built them. A stat tracker to make decisions clearer in real time. A spike timing analyzer to turn guesswork into something measurable.
+            Those projects sparked my interest in the engineering behind useful software: structuring data, keeping application state consistent, processing noisy inputs, and integrating features reliably.
         </p>
 
         <p>
-           Now, I’m continuing to explore how software and AI can be used in the same way by solving practical problems and supporting communities I care about. 
-           Whether it’s athletes, local users, or everyday people navigating something as simple as the rain in Vancouver, I’m always looking for what I can build that would help. 
+            Today, I’m developing HOP, a volleyball jump-tracking wearable with C++ firmware and a device-hosted web interface.
+            I also built RepPower, an iOS app that estimates squat velocity using AirPods motion sensors.
         </p>
-        
+
+        <p>
+            I enjoy working through the whole problem, from understanding what someone needs to designing the system, testing assumptions, and refining the experience. Sport is where I started, and that curiosity now shapes how I build across software and hardware.
+        </p> */}
+
+        <p>
+            Nice to meet you, I’m Jacob, a software developer based in Vancouver with a Biology degree from UBC. I started programming to solve problems I encountered as a volleyball player and coach, and developed an interest in building reliable software across web, mobile, and embedded systems.
+        </p>
+
+        <p>
+            My work includes a React stat tracker used across 20+ competitive matches, RepPower, an iOS app that estimates squat velocity from AirPods motion sensors, and HOP, a wearable jump tracker I’m currently developing.
+        </p>
+
+        <p>
+            I enjoy understanding a problem, designing the system, and refining it through testing and real-world feedback.
+        </p>
+
     </>
 )
 
